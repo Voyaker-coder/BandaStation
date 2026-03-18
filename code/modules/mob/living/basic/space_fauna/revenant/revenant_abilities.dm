@@ -3,8 +3,7 @@
 
 //Transmit: the revemant's only direct way to communicate. Sends a single message silently to a single mob
 /datum/action/cooldown/spell/list_target/telepathy/revenant
-	name = "Передача сообщения"
-	panel = "Revenant Abilities"
+	name = "Revenant Transmit"
 	background_icon_state = "bg_revenant"
 	overlay_icon_state = "bg_revenant_border"
 
@@ -14,7 +13,6 @@
 	antimagic_flags = MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE_MIND
 
 /datum/action/cooldown/spell/aoe/revenant
-	panel = "Revenant Abilities (Locked)"
 	background_icon_state = "bg_revenant"
 	overlay_icon_state = "bg_revenant_border"
 	button_icon = 'icons/mob/actions/actions_revenant.dmi'
@@ -78,9 +76,8 @@
 			reset_spell_cooldown()
 			return . | SPELL_CANCEL_CAST
 
-		name = "[initial(name)] ([cast_amount]Э)"
+		name = "[initial(name)] ([cast_amount]E)"
 		to_chat(cast_on, span_revennotice("Вы разблокировали «[initial(name)]»!"))
-		// panel = "Способности Ревенанта" // BANDASTATION REMOVAL
 		locked = FALSE
 		reset_spell_cooldown()
 		return . | SPELL_CANCEL_CAST
@@ -119,9 +116,7 @@
 			continue
 
 		light.visible_message(span_boldwarning("[light.declent_ru(NOMINATIVE)] внезапно ярко вспыхивает и начинает искрить!"))
-		var/datum/effect_system/spark_spread/light_sparks = new /datum/effect_system/spark_spread()
-		light_sparks.set_up(4, 0, light)
-		light_sparks.start()
+		do_sparks(4, FALSE, light)
 		new /obj/effect/temp_visual/revenant(get_turf(light))
 		addtimer(CALLBACK(src, PROC_REF(overload_shock), light, caster), 2 SECONDS)
 
@@ -338,8 +333,8 @@
 		haunt_color = "#823abb", \
 		haunt_duration = rand(1 MINUTES, 3 MINUTES), \
 		aggro_radius = aoe_radius - 1, \
-		spawn_message = span_revenwarning("[victim.declent_ru(NOMINATIVE)] начинает парить и кружиться в воздухе, светясь ужасным фиолетовым светом!"), \
-		despawn_message = span_revenwarning("[victim.declent_ru(NOMINATIVE)] падает обратно на землю и снова замирает."), \
+		spawn_message = span_revenwarning("[capitalize(victim.declent_ru(NOMINATIVE))] начинает парить и кружиться в воздухе, светясь ужасным фиолетовым светом!"), \
+		despawn_message = span_revenwarning("[capitalize(victim.declent_ru(NOMINATIVE))] падает обратно на землю и снова замирает."), \
 	)
 
 #undef REVENANT_DEFILE_MIN_DAMAGE
