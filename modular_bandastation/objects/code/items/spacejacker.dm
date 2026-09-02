@@ -1,6 +1,6 @@
 /obj/item/spacejacker
 	name = "credit siphon"
-	desc = "A clandestine device that skims credits from nearby bank accounts."
+	desc = "Портативное хакерское устройство, которое позволяет вам тайно снимать кредиты с банковских счетов других членов экипажа и прикреплять к их КПК вирус, который передаёт деньги на ваш космохакер. Также имеет выгодный обменник кредитов на ТК, но будьте осторожны, ТК ограничены, а также слишком частое использование может вызвать подозрения у других членов экипажа."
 	icon = 'icons/obj/devices/voice.dmi'
 	icon_state = "walkietalkie"
 	w_class = WEIGHT_CLASS_SMALL
@@ -15,13 +15,11 @@
 	var/tc_purchase_limit = 8
 	var/exchange_player_count = -1
 	var/exchange_traitor_count = -1
-	var/mob/living/carbon/human/attached_target
+	var/datum/weakref/attached_target_ref
+	var/attached_target_name = null
 	COOLDOWN_DECLARE(siphon_cooldown)
 	COOLDOWN_DECLARE(attach_cooldown)
 
-/obj/item/spacejacker/Initialize(mapload)
-	. = ..()
-	START_PROCESSING(SSobj, src)
 
 /obj/item/spacejacker/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -39,9 +37,15 @@
 
 	var/mob/living/carbon/human/holder = recursive_loc_check(src, /mob/living/carbon/human)
 	var/turf/siphon_center = get_turf(src)
-	if(attached_target)
+	if(attached_target_ref)
+		var/mob/living/carbon/human/attached_target = attached_target_ref.resolve()
+		if(!attached_target)
+			attached_target_ref = null
+			attached_target_name = null
+			return
 		var/obj/item/modular_computer/pda/target_pda = locate() in attached_target.get_all_contents()
 		if(!target_pda)
+			attached_target_ref = null
 			return
 		siphon_center = get_turf(target_pda)
 	var/list/targets = viewers(siphon_range, siphon_center)
@@ -54,7 +58,7 @@
 			continue
 		var/amount = max(1, round(account.account_balance * siphon_percentage))
 		amount = min(amount, account.account_balance)
-		if(!account.adjust_money(-amount, "Система: Несанкционированное списание"))
+		if(!account.adjust_money(-amount, "Система: несанкционированное списание"))
 			continue
 		credits_stored += amount
 		account.bank_card_talk("С вашего счёта списано [amount][MONEY_NAME]. Источник не определён.")
@@ -69,20 +73,34 @@
 	return nearby_players
 
 /obj/item/spacejacker/proc/update_exchange_rate()
-	var/player_count = length(GLOB.clients)
-	var/traitor_count = 0
-	for(var/datum/antagonist/traitor/traitor in GLOB.antagonists)
-		traitor_count++
+	var/player_count = length(GLOB.alive_player_list)
+	var/traitor_count = length(get_antag_minds(/datum/antagonist/traitor))
 
 	if(player_count == exchange_player_count && traitor_count == exchange_traitor_count)
 		return
 
 	exchange_player_count = player_count
 	exchange_traitor_count = traitor_count
-	tc_purchase_limit = player_count >= 31 ? 10 : 8
-	tc_price = player_count >= 31 ? 1000 : 950
+	var/threshold = CONFIG_GET(number/spacejacker_player_threshold)
+	tc_purchase_limit = player_count >= threshold ? CONFIG_GET(number/spacejacker_tc_limit_high) : CONFIG_GET(number/spacejacker_tc_limit_low)
+	tc_price = player_count >= threshold ? CONFIG_GET(number/spacejacker_tc_price_high) : CONFIG_GET(number/spacejacker_tc_price_low)
 	for(var/traitor_number in 1 to traitor_count)
 		tc_price += rand(5, 50)
+
+/datum/config_entry/number/spacejacker_player_threshold
+	default = 31
+
+/datum/config_entry/number/spacejacker_tc_limit_low
+	default = 7
+
+/datum/config_entry/number/spacejacker_tc_limit_high
+	default = 9
+
+/datum/config_entry/number/spacejacker_tc_price_low
+	default = 950
+
+/datum/config_entry/number/spacejacker_tc_price_high
+	default = 1000
 
 /obj/item/spacejacker/proc/attach_to_player(mob/user, target_ref)
 	if(!COOLDOWN_FINISHED(src, attach_cooldown))
@@ -96,7 +114,8 @@
 	var/obj/item/modular_computer/pda/target_pda = locate() in target.get_all_contents()
 	if(!target_pda)
 		return FALSE
-	attached_target = target
+	attached_target_ref = WEAKREF(target)
+	attached_target_name = target.name
 	playsound(target, 'sound/effects/youarehacked.ogg', 100, FALSE)
 	COOLDOWN_START(src, attach_cooldown, 10 MINUTES)
 	var/datum/computer_file/program/messenger/messenger_app = locate() in target_pda.stored_files
@@ -128,7 +147,7 @@
 		"tc_purchase_limit" = tc_purchase_limit,
 		"tc_purchased" = tc_purchased,
 		"active" = active,
-		"attached" = !isnull(attached_target),
+		"attached" = !isnull(attached_target_ref),
 		"nearby_players" = get_nearby_players(),
 	)
 
@@ -140,7 +159,10 @@
 		if("toggle")
 			active = !active
 			if(active)
+				START_PROCESSING(SSobj, src)
 				COOLDOWN_START(src, siphon_cooldown, siphon_interval)
+			else
+				STOP_PROCESSING(SSobj, src)
 			return TRUE
 		if("attach")
 			return attach_to_player(usr, params["target"])
@@ -152,7 +174,7 @@
 			tc_purchased++
 			var/obj/item/stack/telecrystal/telecrystals = new (usr.drop_location(), 1)
 			usr.put_in_hands(telecrystals)
-			to_chat(usr, span_notice("Вы обмениваете [tc_price] кредитов на некоторую сумму телекристаллов."))
+			to_chat(usr, span_notice("Вы обмениваете [tc_price] [MONEY_NAME] на некоторое количество телекристаллов."))
 			return TRUE
 		if("withdraw")
 			if(!credits_stored || !in_range(usr, src))

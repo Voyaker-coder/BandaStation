@@ -1,6 +1,6 @@
 /obj/item/melee/energy/ekatanka
 	name = "energy katana"
-	desc = "Энергетическая Катана, созданная при помощи новых технологий Синдиката. Она способна наносить громадный урон, а такаже оглушать противника при попадании. Имеет некоторую задержку при ударе."
+	desc = "Энергетическая катана, созданная при помощи новых технологий Синдиката. Она способна наносить большой урон, а также оглушать противника при попадании. Имеет задержку при ударе."
 	icon = 'icons/bandastation/obj/weapons/transforming_energy.dmi'
 	icon_state = "ekatanka"
 	inhand_icon_state = "ekatanka"
@@ -21,9 +21,12 @@
 		balloon_alert(user, "перезаряжается")
 		return TRUE
 
-/obj/item/melee/energy/ekatanka/afterattack(atom/target, mob/user, list/modifiers)
+/obj/item/melee/energy/ekatanka/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE) || !isliving(target) || !COOLDOWN_FINISHED(src, next_attack))
+	if(!proximity_flag || !HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE) || !COOLDOWN_FINISHED(src, next_attack))
+		return
+	
+	if(!isliving(target))
 		return
 
 	var/mob/living/living_target = target

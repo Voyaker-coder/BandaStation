@@ -5,10 +5,10 @@
 	cost = 1
 
 /datum/uplink_item/role_restricted/gbs
-	name = "GBS culture bottle"
-	desc = "A small bottle containing a culture of Gravitokinetic Bipotential SADS+."
+	name = "бутылка с вирусом культуры ГБС"
+	desc = "Маленькая бутылка, содержащая кровь с вирусом гравикинетического бипотенциального САДС++."
 	item = /obj/item/reagent_containers/cup/bottle/gbs
-	category = /datum/uplink_category/role_restricted
+	limited_stock = 1
 	restricted_roles = list(
 		JOB_CHIEF_MEDICAL_OFFICER,
 		JOB_CORONER,
@@ -16,29 +16,33 @@
 		JOB_PARAMEDIC,
 		JOB_CHEMIST,
 	)
-	cost = 18
+	cost = 16
 
-/datum/uplink_item/dangerous/gbs/can_be_bought(datum/uplink_handler/source)
+/datum/uplink_item/role_restricted/gbs/can_be_bought(datum/uplink_handler/source)
 	if(!..())
 		return FALSE
 	return locate(/datum/objective/martyr) in source.primary_objectives || locate(/datum/objective/hijack) in source.primary_objectives
 
 /datum/uplink_item/dangerous/ekatanka
-	name = "Тактическая катана 'Багровый порез'"
+	name = "энергетическая катана «Багровый порез»"
 	desc = "Энергетическая катана, созданная при помощи новых технологий Синдиката."
 	item = /obj/item/melee/energy/ekatanka
 	category = /datum/uplink_category/dangerous
-	cost = 18
+	cost = 14
 
 /datum/uplink_item/stealthy_weapons/spacejacker
-	name = "Хакерское устройство 'Богатый Еврей'"
-	desc = "Это устройство позволяет вам тайно снимать кредиты с банковских счетов других членов экипажа и прикреплять к их устройствам вирус, который передаёт деньги на ваш сифон. Также имеет выгодный обменник кредитов на ТК, но будьте осторожны, ТК ограничены, а также слишком частое использование может вызвать подозрения у других членов экипажа."
+	name = "космохакер"
+	desc = "Это устройство позволяет вам тайно снимать кредиты с банковских счетов других членов экипажа и прикреплять к их КПК вирус, который передаёт деньги на ваш космохакер. Также имеет выгодный обменник кредитов на ТК, но будьте осторожны, ТК ограничены, а также слишком частое использование может вызвать подозрения у других членов экипажа."
 	item = /obj/item/spacejacker
 	category = /datum/uplink_category/role_restricted
+	/datum/uplink_item/stealthy_weapons/spacejacker/get_discount_value(discount_type)
+	var/discount = ..()
+	return min(discount, 0.5)
+	limited_stock = 1
 	restricted_roles = list(
 		JOB_QUARTERMASTER,
 		JOB_CARGO_TECHNICIAN,
 		JOB_BITRUNNER,
 		JOB_SHAFT_MINER,
 	)
-	cost = 8
+	cost = 5

@@ -14,7 +14,7 @@ type Data = {
   nearby_players: { name: string; ref: string }[];
 };
 
-export const CreditSiphon = () => {
+export function CreditSiphon() {
   const { act, data } = useBackend<Data>();
   const {
     credits_stored,
@@ -35,7 +35,7 @@ export const CreditSiphon = () => {
     <Window
       width={380}
       height={450}
-      title="Hacking Initialized.."
+      title="Взлом инициализирован..."
       theme="hackerman"
     >
       <Window.Content style={{ fontFamily: 'Verdana, sans-serif' }}>
@@ -49,7 +49,7 @@ export const CreditSiphon = () => {
             color={active ? 'red' : 'green'}
             onClick={() => act('toggle')}
           >
-            {active ? 'Выключить фишинг-бот' : 'Включить фишинг-бот'}
+            {active ? 'Выключить фишинг-бота' : 'Включить фишинг-бота'}
           </Button>
           <Button
             fluid
@@ -83,7 +83,7 @@ export const CreditSiphon = () => {
             Вывести
           </Button>
         </Section>
-        <Section title="КОСМООБМЕННИК 'СИНДИБАНК'">
+        <Section title="КОСМООБМЕННИК «СИНДИБАНК»">
           <Box textAlign="center" mb={1}>
             {tc_price} кр. за 1 ТК <Icon color="gold" name="coins" />
           </Box>
@@ -104,4 +104,4 @@ export const CreditSiphon = () => {
       </Window.Content>
     </Window>
   );
-};
+}
