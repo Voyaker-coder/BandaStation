@@ -264,7 +264,7 @@
 	recharge_time = 2 SECONDS
 	recharge_sound = 'sound/items/eshield_recharge.ogg'
 	holds_charge = TRUE
-	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL// variable-size trigger, get it? (abductors need this to be set so the gun is usable for them)
 
 /obj/item/gun/energy/recharge/shrink_ray/suicide_act(mob/living/user)
 	. = ..()
