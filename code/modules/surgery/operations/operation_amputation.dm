@@ -27,7 +27,7 @@
 	return TOOL_SAW
 
 /datum/surgery_operation/limb/amputate/get_default_radial_image()
-	return image(/obj/item/shears)
+	return image('icons/hud/surgery_radial.dmi', "amputate")
 
 /datum/surgery_operation/limb/amputate/state_check(obj/item/bodypart/limb)
 	if(limb.body_zone == BODY_ZONE_CHEST)
@@ -44,7 +44,7 @@
 		limb.owner,
 		span_notice("Вы начинаете отсекать [limb.ru_plaintext_zone[PREPOSITIONAL]] у [limb.owner.declent_ru(GENITIVE)] ..."),
 		span_notice("[surgeon] начинает отсекать [limb.ru_plaintext_zone[PREPOSITIONAL]] у [limb.owner.declent_ru(GENITIVE)]."),
-		span_notice("[surgeon] начинает отсекать [limb.ru_plaintext_zone[PREPOSITIONAL]] у [limb.owner.declent_ru(GENITIVE)] с помощью [tool]."),
+		span_notice("[surgeon] начинает отсекать [limb.ru_plaintext_zone[PREPOSITIONAL]] у [limb.owner.declent_ru(GENITIVE)] с помощью [tool.declent_ru(ACCUSATIVE)]."),
 	)
 	display_pain(limb.owner, "Вы чувствуете ужасную боль в вашей [limb.ru_plaintext_zone[PREPOSITIONAL]]!")
 

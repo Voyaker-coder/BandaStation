@@ -10,6 +10,9 @@
 	name = "Люмифобия"
 	desc = "У пациента необъяснимая побочная реакция на свет."
 	scan_desc = "светочувствительность"
+	symptoms = "Испытывает сильный дискомфорт и выраженные негативные реакции при воздействии ярких источников света, \
+		и готов предпринимать значительные усилия, чтобы избегать освещённых зон. \
+		Такая чувствительность может приводить к раздражению кожи, похожему на сильный солнечный ожог."
 	gain_text = span_warning("Вы чувствуете тягу к темноте.")
 	lose_text = span_notice("Свет больше не беспокоит вас.")
 	/// Cooldown to prevent warning spam
@@ -18,11 +21,11 @@
 
 /datum/brain_trauma/magic/lumiphobia/on_life(seconds_per_tick)
 	..()
-	var/turf/T = owner.loc
-	if(!istype(T))
+	var/turf/owner_turf = owner.loc
+	if(!istype(owner_turf))
 		return
 
-	if(T.get_lumcount() <= SHADOW_SPECIES_LIGHT_THRESHOLD) //if there's enough light, start dying
+	if(!owner_turf.check_lumcount_above(SHADOW_SPECIES_LIGHT_THRESHOLD)) //if there's enough light, start dying
 		return
 
 	if(COOLDOWN_FINISHED(src, damage_warning_cooldown))
@@ -34,6 +37,8 @@
 	name = "Полтергейст"
 	desc = "Пациент, похоже, подвергается нападению невидимой агрессивной сущности."
 	scan_desc = "паранормальная активность"
+	symptoms = "Испытывает частые и ничем не спровоцированные физические нарушения в непосредственной близости, \
+		например, предметы могут быть брошены или перемещены без какой-либо очевидной причины."
 	gain_text = span_warning("Вы чувствуете ненавистное присутствие рядом с собой.")
 	lose_text = span_notice("Вы чувствуете, как ненавистное присутствие исчезает.")
 
@@ -57,6 +62,8 @@
 	name = "Атаумазия"
 	desc = "Пациент совершенно невосприимчив к магическим силам."
 	scan_desc = "таумическая пустота"
+	symptoms = "Проявляет полную невосприимчивость к эффектам, необъяснимым с точки зрения традиционной науки, \
+		таким как способности, демонстрируемые членами Федерации магов."
 	gain_text = span_notice("Вы понимаете, что магия не может быть реальной.")
 	lose_text = span_notice("Вы понимаете, что магия может быть реальной.")
 
@@ -72,6 +79,9 @@
 	name = "Преследующий призрак"
 	desc = "Пациента преследует призрак, видимый только ему."
 	scan_desc = "экстрасенсорная паранойя"
+	symptoms = "Испытывает неотступное ощущение, будто за ним наблюдают или его преследует невидимая сущность, \
+		что приводит к повышенной тревожности, паранойе и периодическим галлюцинациям призрачной фигуры поблизости. \
+		В крайних случаях это может даже приводить к физическому вреду, наносимому пациенту, по-видимому, невидимой силой."
 	gain_text = span_warning("Вы чувствуете себя так, словно что-то хочет убить вас...")
 	lose_text = span_notice("Вы больше не чувствуете, что кто-то смотрит вам в спину.")
 	/// Type of stalker that is chasing us
@@ -99,7 +109,7 @@
 
 /datum/brain_trauma/magic/stalker/on_life(seconds_per_tick)
 	// Dead and unconscious people are not interesting to the psychic stalker.
-	if(owner.stat != CONSCIOUS)
+	if(IS_UNCONSCIOUS_OR_CRIT(owner))
 		return
 
 	// Not even nullspace will keep it at bay.
@@ -134,6 +144,7 @@
 /datum/brain_trauma/magic/stalker/cosmic
 	stalker_type = /obj/effect/client_image_holder/stalker_phantom/cosmic
 	random_gain = FALSE
+	known_trauma = FALSE
 
 /obj/effect/client_image_holder/stalker_phantom/cosmic
 	image_icon = 'icons/mob/nonhuman-player/96x96eldritch_mobs.dmi'

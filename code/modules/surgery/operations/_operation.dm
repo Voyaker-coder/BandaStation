@@ -142,7 +142,7 @@
 	visible_message(
 		span_notice("[declent_ru(NOMINATIVE)] пытается закрыть [ru_p_theirs()] [limb.ru_plaintext_zone[PREPOSITIONAL]] с помощью [tool.declent_ru(GENITIVE)]..."),
 		span_notice("Вы пытаетесь закрыть свою [limb.ru_plaintext_zone[PREPOSITIONAL]] с помощью [tool.declent_ru(GENITIVE)]..."),
-		span_hear("Вы слышите пение."),
+		span_hear("Вы слышите [tool?.get_temperature() ? "шипение" : "шуршание"]"),
 		vision_distance = 5,
 		visible_message_flags = ALWAYS_SHOW_SELF_MESSAGE,
 	)
@@ -156,9 +156,9 @@
 		return ITEM_INTERACT_BLOCKING
 
 	visible_message(
-		span_notice("[declent_ru(NOMINATIVE)] закрывает [ru_p_theirs()] [limb.ru_plaintext_zone[PREPOSITIONAL]] с помощью [tool.declent_ru(GENITIVE)]."),
-		span_notice("Вы закрываете свою [limb.ru_plaintext_zone[PREPOSITIONAL]] с помощью [tool.declent_ru(GENITIVE)]."),
-		span_hear("Вы слышите пение."),
+		span_notice("[declent_ru(NOMINATIVE)] закрывает [ru_p_theirs()] [limb.ru_plaintext_zone[ACCUSATIVE]] с помощью [tool.declent_ru(GENITIVE)]."),
+		span_notice("Вы закрываете свою [limb.ru_plaintext_zone[ACCUSATIVE]] с помощью [tool.declent_ru(GENITIVE)]."),
+		span_hear("Вы слышите [tool?.get_temperature() ? "шипение" : "шуршание"]"),
 		vision_distance = 5,
 		visible_message_flags = ALWAYS_SHOW_SELF_MESSAGE,
 	)
@@ -185,7 +185,7 @@
 		if(suture_tool.amount <= 0)
 			return FALSE
 	else if(tool.tool_behaviour != TOOL_CAUTERY)
-		if(tool.get_temperature() <= 0)
+		if(tool.get_temperature() <= FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
 			return FALSE
 
 	// we need to have a surgery state worth closing
@@ -518,7 +518,7 @@ GLOBAL_DATUM_INIT(operations, /datum/operation_holder, new)
 		return 0
 
 	var/obj/item/realtool = tool
-	return (realtool.toolspeed) * (implements[realtool.tool_behaviour] || is_type_in_list(realtool, implements, zebra = TRUE) || 0)
+	return (realtool.toolspeed) * (implements[realtool.tool_behaviour] || is_type_in_list(realtool, implements, zebra = TRUE, return_first_match = TRUE) || 0)
 
 /**
  * Return a radial slice, a list of radial slices, or an assoc list of radial slice to operation info
@@ -610,7 +610,7 @@ GLOBAL_DATUM_INIT(operations, /datum/operation_holder, new)
  * For surgery operations that can be performed with any item, this explains what kind of item is needed
  */
 /datum/surgery_operation/proc/get_any_tool()
-	return "Any item"
+	return "Любой предмет"
 
 /**
  * Return a list of lists of strings indicating the various requirements for this operation
@@ -628,7 +628,7 @@ GLOBAL_DATUM_INIT(operations, /datum/operation_holder, new)
 /// "All requirements" are formatted as "All of the following must be true:"
 /datum/surgery_operation/proc/all_required_strings()
 	SHOULD_CALL_PARENT(TRUE)
-	. = bitfield_to_list(all_surgery_states_required, SURGERY_STATE_GUIDES("must"))
+	. = bitfield_to_list(all_surgery_states_required, SURGERY_STATE_GUIDES("требуется"))
 	if(!(operation_flags & OPERATION_STANDING_ALLOWED))
 		. += "пациент должен лежать"
 
@@ -649,7 +649,7 @@ GLOBAL_DATUM_INIT(operations, /datum/operation_holder, new)
 		parsed_any_flags &= ~ALL_SURGERY_VESSEL_STATES
 		. += "кровеносные сосуды должны быть зажаты или разжаты" // weird phrasing but whatever
 
-	. += bitfield_to_list(parsed_any_flags, SURGERY_STATE_GUIDES("must"))
+	. += bitfield_to_list(parsed_any_flags, SURGERY_STATE_GUIDES("требуется"))
 
 /// Returns a list of strings indicating optional conditions for this operation
 /// "Optional conditions" are formatted as "Additionally, any of the following may be true:"
@@ -676,7 +676,7 @@ GLOBAL_DATUM_INIT(operations, /datum/operation_holder, new)
 		parsed_blocked_flags &= ~ALL_SURGERY_VESSEL_STATES
 		. += "кровеносные сосуды должны быть целы"
 
-	. += bitfield_to_list(parsed_blocked_flags, SURGERY_STATE_GUIDES("must not"))
+	. += bitfield_to_list(parsed_blocked_flags, SURGERY_STATE_GUIDES("не требуется"))
 	if(!(operation_flags & OPERATION_IGNORE_CLOTHES))
 		. += "рабочая область не должна быть закрыта одеждой"
 
@@ -742,41 +742,47 @@ GLOBAL_DATUM_INIT(operations, /datum/operation_holder, new)
 	// Ignore alllll the penalties (but also all the bonuses)
 	if(!HAS_TRAIT(surgeon, TRAIT_IGNORE_SURGERY_MODIFIERS))
 		var/mob/living/patient = get_patient(operating_on)
-		total_mod *= get_morbid_modifier(surgeon, tool)
+		total_mod *= get_surgeon_surgery_speed_mod(patient, surgeon, tool)
 		if(!isnull(patient)) // Some surgeries can lack patients
-			total_mod *= get_location_modifier(get_turf(patient))
-			total_mod *= get_mob_surgery_speed_mod(patient)
+			total_mod *= get_location_modifier(get_turf(patient), patient, surgeon, tool)
+			total_mod *= get_mob_surgery_speed_mod(patient, surgeon, tool)
 		// Using TRAIT_SELF_SURGERY on a surgery which doesn't normally allow self surgery imparts a penalty
 		if(operating_on == surgeon && HAS_TRAIT(surgeon, TRAIT_SELF_SURGERY) && !(operation_flags & OPERATION_SELF_OPERABLE))
 			total_mod *= 1.5
 	return round(total_mod, 0.01)
 
-/// Returns a time modifier for morbid operations
-/datum/surgery_operation/proc/get_morbid_modifier(mob/living/surgeon, obj/item/tool)
-	PROTECTED_PROC(TRUE)
-	if(!(operation_flags & OPERATION_MORBID))
-		return 1.0
-	if(!HAS_MIND_TRAIT(surgeon, TRAIT_MORBID))
-		return 1.0
-	if(!isitem(tool) || !(tool.item_flags & CRUEL_IMPLEMENT))
-		return 1.0
-
-	return 0.7
-
 /// Returns a time modifier based on the mob's status
-/datum/surgery_operation/proc/get_mob_surgery_speed_mod(mob/living/patient)
+/datum/surgery_operation/proc/get_mob_surgery_speed_mod(mob/living/patient, mob/living/surgeon, tool)
 	PROTECTED_PROC(TRUE)
 	var/basemod = 1.0
 	for(var/mod_id, mod_amt in patient.mob_surgery_speed_mods)
 		basemod *= mod_amt
 	if(HAS_TRAIT(patient, TRAIT_SURGICALLY_ANALYZED))
 		basemod *= 0.8
-	if(HAS_TRAIT(patient, TRAIT_ANALGESIA))
+	if(HAS_TRAIT(patient, TRAIT_ANALGESIA) || HAS_TRAIT(patient, TRAIT_STASIS) || patient.stat >= 2) // BANDASTATION EDIT
 		basemod *= 0.8
 	return basemod
 
+/// Returns a time modifier based on the surgeon's status
+/datum/surgery_operation/proc/get_surgeon_surgery_speed_mod(mob/living/patient, mob/living/surgeon, tool)
+	PROTECTED_PROC(TRUE)
+	var/basemod = 1.0
+	if((operation_flags & OPERATION_MORBID) && HAS_MIND_TRAIT(surgeon, TRAIT_MORBID) && isitem(tool))
+		var/obj/item/realtool = tool
+		if(realtool.item_flags & CRUEL_IMPLEMENT)
+			basemod *= 0.7
+
+	var/drunkness = surgeon.get_drunk_amount()
+	// being drunk gives upwards of a 12x speed penalty - unless you land in the ballmer peak
+	if(drunkness >= BALLMER_PEAK_LOW_END && drunkness <= BALLMER_PEAK_HIGH_END)
+		basemod *= 0.8
+	else
+		basemod *= 1 + round((drunkness ** 1.5) / 90, 0.1)
+
+	return basemod
+
 /// Gets the surgery speed modifier for a given mob, based off what sort of table/bed/whatever is on their turf.
-/datum/surgery_operation/proc/get_location_modifier(turf/operation_turf)
+/datum/surgery_operation/proc/get_location_modifier(turf/operation_turf, mob/living/patient, mob/living/surgeon, tool)
 	PROTECTED_PROC(TRUE)
 	// Technically this IS a typecache, just not the usual kind :3
 	// The order of the modifiers matter, latter entries override earlier ones
@@ -831,6 +837,12 @@ GLOBAL_DATUM_INIT(operations, /datum/operation_holder, new)
 	if(!check_availability(patient, operating_on, surgeon, tool, operation_args[OPERATION_TARGET_ZONE]))
 		return ITEM_INTERACT_BLOCKING
 
+	if(isitem(tool))
+		var/obj/item/realtool = tool
+		var/tool_return = SEND_SIGNAL(realtool, COMSIG_ITEM_USED_IN_SURGERY, src, operating_on, surgeon)
+		if(tool_return & ITEM_INTERACT_ANY_BLOCKER)
+			return tool_return
+
 	if(!start_operation(operating_on, surgeon, tool, operation_args))
 		return ITEM_INTERACT_BLOCKING
 
@@ -838,7 +850,7 @@ GLOBAL_DATUM_INIT(operations, /datum/operation_holder, new)
 	var/result = NONE
 
 	if(patient)
-		was_sleeping = (patient.stat != DEAD && HAS_TRAIT(patient, TRAIT_KNOCKEDOUT))
+		was_sleeping = IS_UNCONSCIOUS_AND_ALIVE(patient)
 		update_surgery_mood(patient, SURGERY_STATE_STARTED)
 		SEND_SIGNAL(patient, COMSIG_ATOM_SURGERY_STARTED, src, operating_on, tool)
 
@@ -884,7 +896,8 @@ GLOBAL_DATUM_INIT(operations, /datum/operation_holder, new)
 		if(HAS_TRAIT(surgeon, TRAIT_IGNORE_SURGERY_MODIFIERS) && !(operation_flags & OPERATION_ALWAYS_FAILABLE))
 			operation_args[OPERATION_SPEED] = 0
 
-		if(operation_args[OPERATION_FORCE_FAIL] || prob(clamp(GET_FAILURE_CHANCE(time, operation_args[OPERATION_SPEED]), 0, 99)))
+		var/failure_chance = get_modified_failure_chance(time, patient, surgeon, tool, operation_args) // BANDASTATION EDIT
+		if(operation_args[OPERATION_FORCE_FAIL] || prob(clamp(failure_chance, 0, 99))) // BANDASTATION EDIT
 			failure(operating_on, surgeon, tool, operation_args)
 			result |= ITEM_INTERACT_FAILURE
 			if (patient)
@@ -1006,10 +1019,10 @@ GLOBAL_DATUM_INIT(operations, /datum/operation_holder, new)
 	// Create a probability to ignore the pain based on drunkenness level
 	var/drunken_ignorance_probability = clamp(drunken_patient, 0, 90)
 
-	if(target.stat >= UNCONSCIOUS || HAS_TRAIT(target, TRAIT_KNOCKEDOUT))
+	if(IS_UNCONSCIOUS(target))
 		return
-	if(HAS_TRAIT(target, TRAIT_ANALGESIA) || drunken_patient && prob(drunken_ignorance_probability))
-		to_chat(target, span_notice("Вы испытываете тупое, онемевшее ощущение, когда на вашем теле делают хирургическую операцию."))
+	if(HAS_TRAIT(target, TRAIT_ANALGESIA) || HAS_TRAIT(target, TRAIT_STASIS) || drunken_patient && prob(drunken_ignorance_probability)) // BANDASTATION EDIT
+		to_chat(target, span_notice("Вы испытываете притупленное покалывание, пока ваше тело оперируют."))
 		return
 	to_chat(target, span_userdanger(pain_message))
 	if(prob(30) && !mechanical_surgery)
@@ -1067,10 +1080,10 @@ GLOBAL_DATUM_INIT(operations, /datum/operation_holder, new)
 	// Create a probability to ignore the pain based on drunkenness level
 	var/drunk_ignore_prob = clamp(patient.get_drunk_amount(), 0, 90)
 
-	if(HAS_TRAIT(patient, TRAIT_ANALGESIA) || prob(drunk_ignore_prob))
+	if(HAS_TRAIT(patient, TRAIT_ANALGESIA) || HAS_TRAIT(patient, TRAIT_STASIS) || prob(drunk_ignore_prob))
 		patient.clear_mood_event(SURGERY_MOOD_CATEGORY) //incase they gained the trait mid-surgery (or became drunk). has the added side effect that if someone has a bad surgical memory/mood and gets drunk & goes back to surgery, they'll forget they hated it, which is kinda funny imo.
 		return
-	if(patient.stat >= UNCONSCIOUS)
+	if(IS_UNCONSCIOUS(patient))
 		var/datum/mood_event/surgery/target_mood_event = patient.mob_mood?.mood_events[SURGERY_MOOD_CATEGORY]
 		if(!target_mood_event || target_mood_event.surgery_completed) //don't give sleeping mobs trauma. that said, if they fell asleep mid-surgery after already getting the bad mood, lets make sure they wake up to a (hopefully) happy memory.
 			return
@@ -1097,8 +1110,13 @@ GLOBAL_DATUM_INIT(operations, /datum/operation_holder, new)
 	if(!pre_preop(operating_on, surgeon, tool, operation_args))
 		return FALSE
 	// if pre_preop slept, sanity check that everything is still valid
-	if(preop_time != world.time && (patient != get_patient(operating_on) || !surgeon.Adjacent(patient || operating_on) || !surgeon.is_holding(tool) || !operate_check(patient, operating_on, surgeon, tool, operation_args)))
-		return FALSE
+	if(preop_time != world.time)
+		if(patient != get_patient(operating_on))
+			return FALSE
+		if(!in_range(patient || operating_on, surgeon))
+			return FALSE
+		if(!operate_check(patient, operating_on, surgeon, tool, operation_args))
+			return FALSE
 
 	play_operation_sound(operating_on, surgeon, tool, preop_sound)
 	on_preop(operating_on, surgeon, tool, operation_args)
@@ -1130,7 +1148,7 @@ GLOBAL_DATUM_INIT(operations, /datum/operation_holder, new)
 
 	if(operation_flags & OPERATION_NOTABLE)
 		SSblackbox.record_feedback("tally", "surgeries_completed", 1, type)
-		surgeon.add_mob_memory(/datum/memory/surgery, deuteragonist = surgeon, surgery_type = name)
+		surgeon.add_mob_memory(/datum/memory/surgery, deuteragonist = get_patient(operating_on) || operating_on, surgery_type = name)
 
 	SEND_SIGNAL(surgeon, COMSIG_ATOM_SURGERY_SUCCESS, src, operating_on, tool)
 	play_operation_sound(operating_on, surgeon, tool, success_sound)
@@ -1182,7 +1200,7 @@ GLOBAL_DATUM_INIT(operations, /datum/operation_holder, new)
 	var/screwedmessage = ""
 	switch(operation_args[OPERATION_SPEED])
 		if(2.5 to 3)
-			screwedmessage = " У вас почти получилось"
+			screwedmessage = " А ведь у вас почти получилось..."
 		if(3 to 4)
 			pass()
 		if(4 to 5)
@@ -1224,9 +1242,9 @@ GLOBAL_DATUM_INIT(operations, /datum/operation_holder, new)
 /datum/surgery_operation/basic/all_required_strings()
 	. = list()
 	if(required_biotype)
-		. += "операция на [target_zone ? "[parse_zone(target_zone)] (цель [parse_zone(target_zone)])" : "пациента"]"
+		. += "операция на [target_zone ? "[parse_zone(target_zone)] (цель: [parse_zone(target_zone)])" : "пациента"]"
 	else if(target_zone)
-		. += "операция на [parse_zone(target_zone)] (цель [parse_zone(target_zone)])"
+		. += "операция на [parse_zone(target_zone)] (цель: [parse_zone(target_zone)])"
 	. += ..()
 
 /datum/surgery_operation/basic/all_blocked_strings()
@@ -1285,6 +1303,9 @@ GLOBAL_DATUM_INIT(operations, /datum/operation_holder, new)
 	abstract_type = /datum/surgery_operation/limb
 	/// Body type required to perform this operation
 	var/required_bodytype = NONE
+	/// If TRUE, this operation can be performed on stumps.
+	/// If FALSE, the target limb must be a full limb.
+	var/allow_stumps = FALSE
 
 /datum/surgery_operation/limb/all_blocked_strings()
 	. = ..()
@@ -1296,7 +1317,7 @@ GLOBAL_DATUM_INIT(operations, /datum/operation_holder, new)
 /datum/surgery_operation/limb/get_operation_target(atom/movable/operating_on, body_zone)
 	if (isliving(operating_on))
 		var/mob/living/patient = operating_on
-		return patient.get_bodypart(deprecise_zone(body_zone))
+		return patient.get_bodypart(deprecise_zone(body_zone), allow_stumps)
 	if (!isbodypart(operating_on))
 		return null
 	return operating_on

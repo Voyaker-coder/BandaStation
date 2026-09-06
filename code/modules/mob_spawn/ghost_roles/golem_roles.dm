@@ -18,6 +18,12 @@
 	/// Typepath to a material to feed to the golem as soon as it is built
 	var/initial_type
 
+	//Deconstruction var's
+	var/list/obj/item/stack/drop_on_deconstruct
+	//Time it takes to deconstruct a completed shell.	 Note : You can dissssemble multiple at once
+	var/deconstruct_time = 4 SECONDS
+
+
 /obj/effect/mob_spawn/ghost_role/human/golem/Initialize(mapload, mob/living/creator, made_of)
 	initial_type = made_of
 	. = ..()
@@ -78,8 +84,10 @@
 /obj/effect/mob_spawn/ghost_role/human/golem/servant
 	name = "inert servant golem shell"
 	prompt_name = "a servant golem"
-	you_are_text = "You are a golem."
-	flavour_text = "You are highly resistant to heat and cold as well as blunt trauma. You must consume minerals to maintain motion. You are unable to wear clothes, but can still use most tools."
+	you_are_text = "Вы голем-слуга."
+	flavour_text = "Вы - искусственно созданный голем, обязанный подчиняться всем приказам вашего создателя. Будучи големом, вы крайне устойчивы к теплу, холоду и физическим повреждениям. \
+	Вам необходимо употреблять минералы для поддержания активности вашей оболочки. \
+	Вы не можете носить большую часть одежды, однако всё ещё можете использовать различные инструменты."
 	spawner_job_path = /datum/job/servant_golem
 	/// Weakref to the creator of this golem shell.
 	var/datum/weakref/owner_ref
@@ -106,3 +114,27 @@
 	if(owner_ref?.resolve())
 		forced_name =  "Golem ([rand(1,999)])"
 	return ..()
+
+
+/obj/effect/mob_spawn/ghost_role/human/golem/crowbar_act(mob/living/user, obj/item/tool)
+
+	if(DOING_INTERACTION_WITH_TARGET(user, src))
+		return ITEM_INTERACT_SUCCESS
+
+	if(user.combat_mode)
+		return
+	to_chat(user, span_notice("You begin prying load-bearing chunks from the completed shell."))
+	playsound(user, 'sound/items/tools/crowbar.ogg', 70)
+
+	if(do_after(user, delay = deconstruct_time, target = src))
+		new /obj/item/stack/sheet/mineral/adamantine(get_turf(src))
+		if(initial_type)
+			new initial_type(get_turf(src), 5)
+		else
+			new /obj/item/stack/sheet/iron/five(get_turf(src))
+
+		to_chat(user, span_notice("The Golem crumbles in on itself!"))
+		playsound(src, 'sound/effects/rock/rock_break.ogg', 60)
+		qdel(src)
+
+	return ITEM_INTERACT_SUCCESS

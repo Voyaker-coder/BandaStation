@@ -8,6 +8,8 @@
 	name = "Синдром пробужденного Бога"
 	desc = "Время от времени пациент неконтролируемо транслирует речь древнего бога."
 	scan_desc = "божественная иллюзия"
+	symptoms = "Occasionally utters phrases or commands in a commanding tone, often accompanied by a sense of divine authority. \
+		These utterances can influence the behavior of others, compelling them to act in accordance with the spoken words."
 	gain_text = span_notice("Вы чувствуете высшую силу внутри своего разума...")
 	lose_text = span_warning("Божественное присутствие покидает вашу голову, потеряв интерес.")
 
@@ -52,6 +54,8 @@
 	name = "Блюспейс пророчество"
 	desc = "Пациент может ощущать колебания и переплетения блюспейса вокруг себя, показывающего проходы, которые никто другой не может увидеть."
 	scan_desc = "bluespace attunement"
+	symptoms = "Gains the ability to perceive hidden pathways through bluespace, allowing for spontaneous creation of temporary portals \
+		that connect two distant locations. To the average eye, the patient appears to disappear into thin air, only to reappear elsewhere nearby."
 	gain_text = span_notice("Вы чувствуете, как блюспейс пульсирует вокруг тебя...")
 	lose_text = span_warning("Слабая пульсация блюспейса сменяется тишиной.")
 	/// Cooldown so we can't teleport literally everywhere on a whim
@@ -156,6 +160,8 @@
 	name = "Квантовое выравнивание"
 	desc = "Пациент склонен к частой спонтанной квантовой запутанности, вопреки всем обстоятельствам, что приводит к пространственным аномалиям."
 	scan_desc = "квантовое выравнивание"
+	symptoms = "Frequently experiences spontaneous quantum entanglement with nearby objects or beings, \
+		resulting in sudden and unpredictable teleportation events that connect the patient to the entangled target."
 	gain_text = span_notice("Вы чувствуете слабую связь со всем, что вас окружает...")
 	lose_text = span_warning("Вы больше не чувствуете связи со своим окружением.")
 	var/atom/linked_target = null
@@ -239,6 +245,8 @@
 	name = "Насильственный психоз"
 	desc = "Пациент сражается непредсказуемыми способами, начиная от оказания помощи своей жертве и заканчивая нанесением ей жестоких ударов."
 	scan_desc = "насильственный психоз"
+	symptoms = "Exhibits erratic and potentially violent behavior when in physical contact with others, \
+		often accidentally attacking those they intend to offer a hand, or hugging those who they mean to strike."
 	gain_text = span_warning("Вы чувствуете себя расстроенными...")
 	lose_text = span_notice("Вы чувствуете себя более уравновешенным.")
 	/// The martial art we teach
@@ -261,6 +269,8 @@
 	name = "Упорство"
 	desc = "Пациент психологически нечувствителен к боли и травмам и может оставаться на ногах гораздо дольше обычного человека."
 	scan_desc = "травматическая невропатия"
+	symptoms = "Exhibits a remarkable resistance to pain and physical trauma, \
+		allowing them to sustain severe injuries that would incapacitate an otherwise normal individual."
 	gain_text = span_warning("Вы внезапно перестаете чувствовать боль.")
 	lose_text = span_warning("Вы понимаете, что снова можете чувствовать боль.")
 
@@ -276,6 +286,8 @@
 	name = "Функциональный церебральный некроз"
 	desc = "Мозг пациента находится в функциональном предсмертном состоянии, что время от времени вызывает осознанные галлюцинации, которые часто интерпретируются как голоса умерших."
 	scan_desc = "хронический функциональный некроз"
+	symptoms = "Experiences intermittent auditory hallucinations characterized by whispering voices, \
+		which are often perceived as communications from the deceased."
 	gain_text = span_warning("Вы чувствуете себя мертвым внутри.")
 	lose_text = span_notice("Вы снова чувствуете себя живым.")
 	var/active = FALSE
@@ -303,6 +315,8 @@
 	name = "Экзистенциальный кризис"
 	desc = "Связь пациента с реальностью ослабевает, вызывая периодические эпизоды несуществования."
 	scan_desc = "экзистенциальный кризис"
+	symptoms = "Experiences sporadic episodes of \"non-existence\", during which the patient temporarily fades out of reality, \
+		becoming intangible and invisible to others. Often accompanied by feelings of detachment, depression, and disorientation."
 	gain_text = span_warning("Вы чувствуете себя менее реальным.")
 	lose_text = span_notice("Вы снова чувствуете себя более значимым.")
 	var/obj/effect/abstract/sync_holder/veil/veil
@@ -354,6 +368,7 @@
 	gain_text = span_warning("Правосудие придет за вами.")
 	lose_text = span_notice("Вы были освобождены от ответственности за ваши преступления.")
 	random_gain = FALSE
+	known_trauma = FALSE
 	/// A ref to our fake beepsky image that we chase the owner with
 	var/obj/effect/client_image_holder/securitron/beepsky
 
@@ -384,7 +399,7 @@
 	if(get_dist(owner, beepsky) >= 10 && prob(20))
 		create_securitron()
 
-	if(owner.stat != CONSCIOUS)
+	if(IS_UNCONSCIOUS_OR_CRIT(owner))
 		if(prob(20))
 			owner.playsound_local(beepsky, 'sound/mobs/non-humanoids/beepsky/iamthelaw.ogg', 50)
 		return
@@ -423,13 +438,17 @@
 		var/beepskys_cry = "Level 10 infraction alert!"
 		to_chat(victim, "[span_name("[name]")] exclaims, \"[span_robot("[beepskys_cry]")]")
 		if(victim.client?.prefs.read_preference(/datum/preference/toggle/enable_runechat))
-			victim.create_chat_message(src, raw_message = beepskys_cry, spans = list("robotic"))
+			victim.create_chat_message(src, raw_message = beepskys_cry, spans = list(SPAN_ROBOT))
 
 // Used by Veteran Security Advisor job.
 /datum/brain_trauma/special/ptsd
 	name = "Боевое ПТСР"
 	desc = "Пациент испытывает посттравматическое стрессовое расстройство, вызванное пережитыми боевыми действиями, что приводит к отсутствию эмоций. Кроме того, у него наблюдаются лёгкие галлюцинации."
 	scan_desc = "ПТСР"
+	symptoms = "Witnessed or experienced a traumatic, horrific, or potentially life threatening event, \
+		resulting in avoidance, intrusive thoughts, flashbacks, auditory hallucinations, \
+		emotional numbness, detachment from others, and heightened reactivity to stimuli - \
+		particularly in situations reminiscent of the traumatic event."
 	gain_text = span_warning("Вы возвращаетесь в хаос прошлого! Взрывы! Стрельба! Эмоции покинули строй!")
 	lose_text = span_notice("Вы чувствуете, как исчезают воспоминания о прошлом, как возвращаются ваши эмоции и проясняется разум.")
 	resilience = TRAUMA_RESILIENCE_ABSOLUTE
@@ -450,7 +469,7 @@
 	)
 
 /datum/brain_trauma/special/ptsd/on_life(seconds_per_tick)
-	if(owner.stat != CONSCIOUS)
+	if(IS_UNCONSCIOUS_OR_CRIT(owner))
 		return
 
 	if(!COOLDOWN_FINISHED(src, ptsd_hallucinations))
@@ -462,21 +481,24 @@
 /datum/brain_trauma/special/ptsd/on_gain()
 	owner.add_mood_event("combat_ptsd", /datum/mood_event/desentized)
 	owner.mob_mood?.mood_modifier -= 1 //Basically nothing can change your mood
-	owner.mob_mood?.sanity_level = SANITY_DISTURBED //Makes sanity on a unstable level unless cured
-	ADD_TRAIT(owner, TRAIT_DESENSITIZED, REF(src))
+	owner.mob_mood?.set_sanity(SANITY_DISTURBED, override = TRUE) //Makes sanity on a unstable level unless cured
+	owner.apply_status_effect(/datum/status_effect/desensitized, REF(src), DESENSITIZED_THRESHOLD)
 	. = ..()
 
 /datum/brain_trauma/special/ptsd/on_lose()
 	owner.clear_mood_event("combat_ptsd")
 	owner.mob_mood?.mood_modifier += 1
-	owner.mob_mood?.sanity_level = SANITY_GREAT
-	REMOVE_TRAIT(owner, TRAIT_DESENSITIZED, REF(src))
+	owner.mob_mood?.set_sanity(SANITY_GREAT, override = TRUE)
+	owner.remove_status_effect(/datum/status_effect/desensitized, REF(src))
 	return ..()
 
 /datum/brain_trauma/special/primal_instincts
 	name = "Дикие инстинкты"
 	desc = "Разум пациента застревает в первобытном состоянии, заставляя его действовать скорее инстинктивно, чем разумно."
 	scan_desc = "одичание"
+	symptoms = "Rarely experiences episodes where higher cognitive functions are suppressed, \
+		resulting in behavior driven primarily by primal instincts. During these episodes, \
+		the patient may exhibit increased aggression, territoriality, and a focus on basic survival needs."
 	gain_text = span_warning("Ваши зрачки расширяются, и вам становится все труднее мыслить здраво.")
 	lose_text = span_notice("Ваш разум проясняется, и вы чувствуете, что лучше контролируете ситуацию.")
 	resilience = TRAUMA_RESILIENCE_SURGERY
@@ -491,8 +513,8 @@
 
 	owner.ai_controller = new /datum/ai_controller/monkey(owner)
 	owner.ai_controller.continue_processing_when_client = TRUE
-	owner.ai_controller.can_idle = FALSE
-	owner.ai_controller.set_ai_status(AI_STATUS_OFF)
+	owner.ai_controller.ai_traits |= RUN_WHILE_UNWATCHED
+	owner.ai_controller.force_ai_off()
 
 /datum/brain_trauma/special/primal_instincts/on_lose(silent)
 	. = ..()
@@ -515,14 +537,14 @@
 	owner.grant_language(/datum/language/monkey, UNDERSTOOD_LANGUAGE, TRAUMA_TRAIT)
 	owner.ai_controller.set_blackboard_key(BB_MONKEY_AGGRESSIVE, prob(75))
 	if(owner.ai_controller.ai_status == AI_STATUS_OFF)
-		owner.ai_controller.set_ai_status(AI_STATUS_ON)
+		owner.ai_controller.clear_forced_off()
 		owner.log_message("became controlled by monkey instincts ([owner.ai_controller.blackboard[BB_MONKEY_AGGRESSIVE] ? "aggressive" : "docile"])", LOG_ATTACK, color = "orange")
 		to_chat(owner, span_warning("Вы чувствуете непреодолимое желание действовать в соответствии со своими первобытными инстинктами..."))
 	// extend original timer if we roll the effect while it's already ongoing
 	addtimer(CALLBACK(src, PROC_REF(primal_instincts_off)), rand(20 SECONDS, 40 SECONDS), TIMER_UNIQUE|TIMER_NO_HASH_WAIT|TIMER_OVERRIDE|TIMER_DELETE_ME)
 
 /datum/brain_trauma/special/primal_instincts/proc/primal_instincts_off()
-	owner.ai_controller.set_ai_status(AI_STATUS_OFF)
+	owner.ai_controller.force_ai_off()
 	owner.remove_language(/datum/language/monkey, UNDERSTOOD_LANGUAGE, TRAUMA_TRAIT)
 	to_chat(owner, span_green("Желание утихает."))
 
@@ -534,6 +556,7 @@
 	lose_text = span_warning("Вы чувствуете, что потеряли чувство долга.")
 	resilience = TRAUMA_RESILIENCE_ABSOLUTE
 	random_gain = FALSE
+	known_trauma = FALSE
 	var/static/list/talk_lines = list(
 		"Я горжусь тобой.",
 		"Я верю в тебя!",
@@ -559,7 +582,7 @@
 	)
 
 /datum/brain_trauma/special/axedoration/on_life(seconds_per_tick)
-	if(owner.stat != CONSCIOUS)
+	if(IS_UNCONSCIOUS_OR_CRIT(owner))
 		return
 
 	if(!GLOB.bridge_axe)
@@ -676,7 +699,7 @@
 	to_chat(owner, span_warning("Мне действительно стоит оставить его здесь?"))
 	owner.add_mood_event("fireaxe", /datum/mood_event/axe_neutral)
 
-/datum/brain_trauma/special/axedoration/proc/on_examine(mob/source, atom/target, list/examine_strings)
+/datum/brain_trauma/special/axedoration/proc/on_examine(mob/source, atom/target, list/examine_strings, list/examine_overrides)
 	SIGNAL_HANDLER
 	if(!istype(target, /obj/item/fireaxe))
 		return

@@ -25,10 +25,10 @@
 	return "Любой острый предмет"
 
 /datum/surgery_operation/basic/incise_skin/all_blocked_strings()
-	return ..() + list("У пациента не должно быть сложной анатомии")
+	return ..() + list("у пациента не должно быть сложной анатомии")
 
 /datum/surgery_operation/basic/incise_skin/get_default_radial_image()
-	return image(/obj/item/scalpel)
+	return image('icons/hud/surgery_radial.dmi', "make_incision")
 
 /datum/surgery_operation/basic/incise_skin/state_check(mob/living/patient)
 	return !patient.has_limbs // Only for limbless mobs
@@ -88,10 +88,10 @@
 	return "Любой острый предмет, требующий усилия"
 
 /datum/surgery_operation/basic/saw_bone/all_blocked_strings()
-	return ..() + list("У пациента не должно быть сложной анатомии")
+	return ..() + list("у пациента не должно быть сложной анатомии")
 
 /datum/surgery_operation/basic/saw_bone/get_default_radial_image()
-	return image(/obj/item/circular_saw)
+	return image('icons/hud/surgery_radial.dmi', "mend_incision")
 
 /datum/surgery_operation/basic/saw_bone/state_check(mob/living/patient)
 	return !patient.has_limbs // Only for limbless mobs
@@ -151,7 +151,7 @@
 	return "Любой источник тепла"
 
 /datum/surgery_operation/basic/close_skin/all_blocked_strings()
-	return ..() + list("У пациента не должно быть сложной анатомии")
+	return ..() + list("у пациента не должно быть сложной анатомии")
 
 /datum/surgery_operation/basic/close_skin/get_default_radial_image()
 	return image(/obj/item/cautery)
@@ -167,7 +167,7 @@
 		var/obj/item/gun/energy/laser/lasergun = tool
 		return lasergun.cell?.charge > 0
 
-	return tool.get_temperature() > 0
+	return tool.get_temperature() >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST
 
 /datum/surgery_operation/basic/close_skin/on_preop(mob/living/patient, mob/living/surgeon, obj/item/tool, list/operation_args)
 	display_results(

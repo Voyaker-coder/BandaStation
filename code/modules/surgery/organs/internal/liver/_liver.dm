@@ -21,6 +21,8 @@
 	cells_minimum = 1
 	cells_maximum = 2
 
+	visual = FALSE
+
 	/// Affects how much damage the liver takes from alcohol
 	var/alcohol_tolerance = ALCOHOL_RATE
 	/// The maximum volume of toxins the liver will ignore
@@ -81,7 +83,7 @@
  *
  * NOTE: If you return COMSIG_MOB_STOP_REAGENT_TICK, that reagent will not be removed like normal! You must handle it manually.
  **/
-/obj/item/organ/liver/proc/handle_chemical(mob/living/carbon/organ_owner, datum/reagent/chem, seconds_per_tick)
+/obj/item/organ/liver/proc/handle_chemical(mob/living/carbon/organ_owner, datum/reagent/chem, seconds_per_tick, metabolization_rate)
 	SIGNAL_HANDLER
 
 /obj/item/organ/liver/examine(mob/user)
@@ -92,13 +94,15 @@
 			. += span_info("Fatty deposits and sprinkle residue, imply that this is the liver of someone in <em>security</em>.")
 		if(HAS_TRAIT(src, TRAIT_CULINARY_METABOLISM))
 			. += span_info("The high iron content and slight smell of garlic, implies that this is the liver of a <em>cook</em>.")
+		if (HAS_TRAIT(src, TRAIT_BARTENDER_METABOLISM))
+			. += span_info("The decidedly well-used look from periods of prolonged exposure to a wide variety of alcohols, implies that this is the liver of a <em>bartender</em>.")
 		if(HAS_TRAIT(src, TRAIT_COMEDY_METABOLISM))
 			. += span_info("A smell of bananas, a slippery sheen and [span_clown("honking")] when depressed, implies that this is the liver of a <em>clown</em>.")
 		if(HAS_TRAIT(src, TRAIT_MEDICAL_METABOLISM))
 			. += span_info("Marks of stress and a faint whiff of medicinal alcohol, imply that this is the liver of a <em>medical worker</em>.")
 		if(HAS_TRAIT(src, TRAIT_ENGINEER_METABOLISM))
 			. += span_info("Signs of radiation exposure and space adaption, implies that this is the liver of an <em>engineer</em>.")
-		if(HAS_TRAIT(src, TRAIT_BALLMER_SCIENTIST))
+		if(HAS_TRAIT(src, TRAIT_SCIENTIST_LIVER))
 			. += span_info("Strange glowing residues, sprinklings of congealed solid plasma, and what seem to be tumors indicate this is the radiated liver of a <em>scientist</em>.")
 		if(HAS_TRAIT(src, TRAIT_MAINTENANCE_METABOLISM))
 			. += span_info("A half-digested rat's tail (somehow), disgusting sludge, and the faint smell of Grey Bull imply this is what remains of an <em>assistant</em>'s liver.")
@@ -242,6 +246,7 @@
 	maxHealth = STANDARD_ORGAN_THRESHOLD*0.5
 	toxTolerance = 2
 	liver_resistance = 0.9 * LIVER_DEFAULT_TOX_RESISTANCE // -10%
+	custom_materials = list(/datum/material/iron = HALF_SHEET_MATERIAL_AMOUNT, /datum/material/glass = HALF_SHEET_MATERIAL_AMOUNT)
 	var/emp_vulnerability = 80 //Chance of permanent effects if emp-ed.
 
 /obj/item/organ/liver/cybernetic/emp_act(severity)
@@ -249,7 +254,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	if(!COOLDOWN_FINISHED(src, severe_cooldown)) //So we cant just spam emp to kill people.
-		owner.adjust_tox_loss(10)
+		owner.adjust_tox_loss(10 / severity)
 		COOLDOWN_START(src, severe_cooldown, 10 SECONDS)
 	if(prob(emp_vulnerability/severity)) //Chance of permanent effects
 		organ_flags |= ORGAN_EMP //Starts organ faliure - gonna need replacing soon.
@@ -272,6 +277,7 @@
 	toxTolerance = 10 //can shrug off up to 10u of toxins
 	liver_resistance = 1.5 * LIVER_DEFAULT_TOX_RESISTANCE // +50%
 	emp_vulnerability = 20
+	custom_materials = list(/datum/material/iron = HALF_SHEET_MATERIAL_AMOUNT, /datum/material/glass = HALF_SHEET_MATERIAL_AMOUNT, /datum/material/silver = HALF_SHEET_MATERIAL_AMOUNT)
 
 /obj/item/organ/liver/cybernetic/surplus
 	name = "surplus prosthetic liver"
@@ -304,7 +310,7 @@
 	if(!(organ_owner.mob_biotypes & MOB_PLANT))
 		return
 	if(chem.type == /datum/reagent/toxin/plantbgone)
-		organ_owner.adjust_tox_loss(3 * REM * seconds_per_tick)
+		organ_owner.adjust_tox_loss(1.5 * seconds_per_tick)
 
 /obj/item/organ/liver/snail
 	name = "snail liver"
@@ -330,7 +336,7 @@
 		return
 	if(istype(chem, /datum/reagent/consumable/salt))
 		playsound(organ_owner, SFX_SEAR, 30, TRUE)
-		organ_owner.adjust_fire_loss(2 * REM * seconds_per_tick)
+		organ_owner.adjust_fire_loss(1 * seconds_per_tick)
 		organ_owner.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * seconds_per_tick)
 		return COMSIG_MOB_STOP_REAGENT_TICK
 
@@ -386,6 +392,12 @@
 			continue
 
 		owner.reagents.convert_reagent(reagent.type, convert_into, ethanol_conversion)
+
+/obj/item/organ/liver/lizard
+	name = "saurian liver"
+	desc = "A liver that has mutated at some point in the past to allow the quasi-carnivore, proto-lizardfolk to metabolize plant nutrients from Tizira's xenoflora. \
+		Researchers believe this to be what ultimately allowed the lizardpeople to thrive as a species."
+	organ_traits = list(TRAIT_LIZARD_METABOLISM)
 
 #undef LIVER_DEFAULT_TOX_TOLERANCE
 #undef LIVER_DEFAULT_TOX_RESISTANCE

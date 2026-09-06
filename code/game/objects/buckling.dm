@@ -155,6 +155,7 @@
  * force - TRUE if we should ignore buckled_mob.can_buckle_to
  */
 /atom/movable/proc/unbuckle_mob(mob/living/buckled_mob, force = FALSE, can_fall = TRUE)
+
 	if(!isliving(buckled_mob))
 		CRASH("Non-living [buckled_mob] thing called unbuckle_mob() for source.")
 	if(buckled_mob.buckled != src)
@@ -203,7 +204,7 @@
 	if(!has_buckled_mobs())
 		return
 	for(var/m in buckled_mobs)
-		unbuckle_mob(m, force)
+		INVOKE_ASYNC(src, PROC_REF(unbuckle_mob), m, force)
 
 //Handle any extras after buckling
 //Called on buckle_mob()
@@ -375,13 +376,13 @@
 /atom/movable/proc/unbuckle_feedback(mob/living/unbuckled_mob, mob/unbuckler)
 	if(unbuckled_mob == unbuckler)
 		unbuckled_mob.visible_message(
-			span_notice("[unbuckler] unbuckles [unbuckler.p_them()]self from [src]."),
-			span_notice("You unbuckle yourself from [src]."),
-			span_hear("You hear metal clanking."),
+			span_notice("[unbuckler.declent_ru(NOMINATIVE)] отстегивает себя от [src.declent_ru(GENITIVE)]."),
+			span_notice("Вы отстегиваете себя от [src.declent_ru(GENITIVE)]."),
+			span_hear("Вы слышите лязг металла."),
 		)
 	else
 		unbuckled_mob.visible_message(
-			span_notice("[unbuckler] unbuckles [unbuckled_mob] from [src]."),
-			span_notice("[unbuckler] unbuckles you from [src]."),
-			span_hear("You hear metal clanking."),
+			span_notice("[unbuckler.declent_ru(NOMINATIVE)] отстёгивает [unbuckled_mob.declent_ru(ACCUSATIVE)] от [src.declent_ru(GENITIVE)]."),
+			span_notice("[unbuckler.declent_ru(NOMINATIVE)] отстёгивает вас от [src.declent_ru(GENITIVE)]."),
+			span_hear("Вы слышите лязг металла."),
 		)

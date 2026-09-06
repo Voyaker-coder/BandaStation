@@ -48,6 +48,8 @@ GLOBAL_VAR(department_cd_override)
 /datum/computer_file/program/department_order/proc/set_linked_department(datum/job_department/department)
 	linked_department = department
 	var/datum/job_department/linked_department_real = SSjob.get_department_type(linked_department)
+	if (isnull(linked_department_real))
+		return
 	// Heads of staff can download
 	LAZYOR(download_access, linked_department_real.head_of_staff_access)
 	// Heads of staff + anyone in the dept can run it
@@ -90,6 +92,7 @@ GLOBAL_VAR(department_cd_override)
 			"cost" = pack.get_cost(),
 			"id" = pack.id,
 			"desc" = pack.desc || pack.name, // If there is a description, use it. Otherwise use the pack's name.
+			"highlight" = pack.highlight_in_console,
 		))
 
 	var/list/supply_data_flattened = list()

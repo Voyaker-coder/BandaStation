@@ -109,7 +109,7 @@
 				/obj/item/storage/backpack/ert/security = 8,
 				/obj/item/storage/belt/security/webbing/ert = 5,
 				/obj/item/storage/belt/military/assault/ert = 5,
-				/obj/item/storage/belt/holster/ert = 3,
+				/obj/item/clothing/accessory/holster/tacticool = 3,
 				/obj/item/flashlight/seclite = 8,
 				/obj/item/restraints/handcuffs = 20,
 				/obj/item/restraints/legcuffs/bola/energy = 10,
@@ -214,7 +214,7 @@
 				/obj/item/mod/control/pre_equipped/responsory/commander = 1,
 				/obj/item/mod/control/pre_equipped/responsory/medic = 1,
 				/obj/item/mod/control/pre_equipped/responsory/engineer = 1,
-				/obj/item/storage/belt/holster/ert = 5,
+				/obj/item/clothing/accessory/holster/tacticool = 5,
 				/obj/item/storage/belt/military/ert = 8,
 				/obj/item/storage/belt/military/holster = 8,
 				/obj/item/storage/belt/military/army = 8,
@@ -266,13 +266,18 @@
 	products += list(
 		/obj/item/clothing/head/cowboy/security = 3,
 		/obj/item/clothing/head/soft/sec/corporate = 3,
+		/obj/item/clothing/under/security/formal = 3,
+		/obj/item/clothing/under/security/black = 3,
+		/obj/item/clothing/under/security/alternative_black = 3,
 		/obj/item/clothing/head/sec_beanie = 3,
 		/obj/item/clothing/neck/cloak/sec_poncho = 3,
 		/obj/item/clothing/under/rank/security/officer/corporate = 3,
 		/obj/item/clothing/under/rank/security/officer/skirt/corporate = 3,
+		/obj/item/clothing/under/security/alt_skirt = 3,
 		/obj/item/clothing/suit/armor/vest/bomber = 3,
 		/obj/item/clothing/suit/armor/vest/coat = 3,
 		/obj/item/clothing/suit/armor/vest/caftan = 3,
+		/obj/item/clothing/under/security/turtleneck = 3,
 		)
 	. = ..()
 
@@ -281,5 +286,21 @@
 		/obj/item/clothing/head/cowboy/science = 3,
 		/obj/item/clothing/suit/jacket/bomber/science = 3,
 		/obj/item/clothing/neck/cloak/sci_mantle = 3,
+		/obj/item/clothing/under/scientist/utility = 3,
+		)
+	. = ..()
+
+/obj/machinery/vending/wardrobe/engi_wardrobe/Initialize(mapload)
+	products += list(
+		/obj/item/clothing/under/engineering/telecomm = 3,
+		/obj/item/clothing/under/engineering/telecomm/skirt = 3,
+		/obj/item/clothing/under/engineering/mechanic = 3,
+		)
+	. = ..()
+
+/obj/machinery/vending/wardrobe/medi_wardrobe/Initialize(mapload)
+	products += list(
+		/obj/item/clothing/under/medical/paramed_light = 3,
+		/obj/item/clothing/under/medical/paramed_light/skirt = 3,
 		)
 	. = ..()

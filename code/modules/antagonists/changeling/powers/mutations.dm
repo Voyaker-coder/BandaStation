@@ -177,7 +177,8 @@
 	name = "Arm Blade"
 	desc = "Мы превращаем одну из наших рук в смертоносный клинок. Стоит 20 химикатов."
 	helptext = "Мы можем убрать свой клинок так же, как и сформировали его. Нельзя использовать, находясь в меньшей форме."
-	button_icon_state = "armblade"
+	button_icon_state = "arm_blade"
+	category = "combat"
 	chemical_cost = 20
 	dna_cost = 2
 	req_human = TRUE
@@ -273,6 +274,7 @@
 	В боевой стойке, поймав жертву, мы возьмем ее в захват; притянем к себе и нанесем удар, если в руках у нас также есть острое оружие. \
 	Не может быть использована в меньшей форме."
 	button_icon_state = "tentacle"
+	category = "combat"
 	chemical_cost = 10
 	dna_cost = 2
 	req_human = TRUE
@@ -476,7 +478,7 @@
 	return BULLET_ACT_HIT
 
 /obj/projectile/tentacle/Destroy()
-	qdel(chain)
+	QDEL_NULL(chain)
 	source = null
 	return ..()
 
@@ -489,6 +491,7 @@
 	desc = "Мы превращаем одну из наших рук в твердый щит. Стоит 20 химикатов."
 	helptext = "Органическая ткань не может вечно сопротивляться повреждениям; щит может сломаться, после того, как по нему нанесут слишком много ударов. Чем больше генов мы поглощаем, тем сильнее он становится. Невозможно использовать, находясь в меньшей форме."
 	button_icon_state = "organic_shield"
+	category = "combat"
 	chemical_cost = 20
 	dna_cost = 1
 	req_human = TRUE
@@ -546,6 +549,7 @@
 	desc = "Мы превращаем нашу кожу в прочный хитин, чтобы защитить себя от повреждений. Стоит 20 химикатов."
 	helptext = "На поддержание брони требуется небольшой расход химикатов. Доспехи обеспечивают достойную защиту от грубой силы и энергетического оружия. Не может быть использована в меньшей форме."
 	button_icon_state = "chitinous_armor"
+	category = "combat"
 	chemical_cost = 20
 	dna_cost = 1
 	req_human = TRUE
@@ -612,6 +616,7 @@
 	desc = "Мы покрываем голову восковым покрытием, похожим на пчелиный улей, которое можно использовать для производства пчел, атакующих наших врагов. Стоит 15 химикатов."
 	helptext = "Хотя голова улья не дает особой брони, она позволяет посылать пчел в атаку на цели. Внутрь улья можно насыпать реагенты, чтобы все выпущенные пчелы впрыскивали эти реагенты."
 	button_icon_state = "hive_head"
+	category = "combat"
 	chemical_cost = 15
 	dna_cost = 2
 	req_human = FALSE
@@ -653,9 +658,9 @@
 	if(!istype(tool, /obj/item/organ/monster_core/regenerative_core/legion) || !holds_reagents)
 		return NONE
 	visible_message(span_boldwarning("Когда [user.declent_ru(NOMINATIVE)] запихивает [tool.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)], [declent_ru(NOMINATIVE)] начинает мутировать."))
-	var/mob/living/carbon/wearer = loc
+	var/mob/living/carbon/human/wearer = loc
 	playsound(wearer, 'sound/effects/blob/attackblob.ogg', 60, TRUE)
-	wearer.temporarilyRemoveItemFromInventory(wearer.head, TRUE)
+	wearer.temporarilyRemoveItemFromInventory(src, TRUE)
 	wearer.equip_to_slot_if_possible(new /obj/item/clothing/head/helmet/changeling_hivehead/legion(wearer), ITEM_SLOT_HEAD, 1, 1, 1)
 	qdel(tool)
 	return ITEM_INTERACT_SUCCESS
@@ -687,7 +692,8 @@
 		spawns = 1
 	for(var/i in 1 to spawns)
 		var/mob/living/basic/summoned_minion = new spawn_type(owner.drop_location())
-		summoned_minion.faction = list("[REF(owner)]")
+		summoned_minion.set_allies(list("[REF(owner)]"))
+		summoned_minion.set_faction(null)
 		minion_additional_changes(summoned_minion)
 
 ///Our tell that we're using this ability. Usually a sound and a visible message.area
@@ -698,9 +704,9 @@
 ///Stuff we want to do to our minions. This is in its own proc so subtypes can override this behaviour.
 /datum/action/cooldown/hivehead_spawn_minions/proc/minion_additional_changes(mob/living/basic/minion)
 	var/mob/living/basic/bee/summoned_bee = minion
-	var/mob/living/carbon/wearer = owner
-	if(istype(summoned_bee) && length(wearer.head.reagents.reagent_list))
-		summoned_bee.assign_reagent(pick(wearer.head.reagents.reagent_list))
+	var/obj/item/clothing/head/helmet/changeling_hivehead/hivehead = owner.get_item_by_slot(ITEM_SLOT_HEAD)
+	if(istype(summoned_bee) && istype(hivehead) && length(hivehead.reagents.reagent_list))
+		summoned_bee.assign_reagent(pick(hivehead.reagents.reagent_list))
 
 /obj/item/clothing/head/helmet/changeling_hivehead/legion
 	name = "legion hive head"

@@ -11,7 +11,7 @@
 	shoes = /obj/item/clothing/shoes/pirate/armored
 
 /datum/outfit/pirate/post_equip(mob/living/carbon/human/equipped)
-	equipped.faction |= FACTION_PIRATE
+	equipped.add_faction(FACTION_PIRATE)
 
 	var/obj/item/radio/outfit_radio = equipped.ears
 	if(outfit_radio)
@@ -146,7 +146,7 @@
 	suit = null
 	ears = /obj/item/radio/headset/syndicate/alt/leader
 	head = null
-	belt = /obj/item/storage/belt/holster/detective/full/ert
+	accessory = /obj/item/clothing/accessory/holster/detective/veteran_advisor //BANDASTATION EDIT: Accessory holsters
 
 /datum/outfit/pirate/lustrous
 	name = "Lustrous Scintillant"

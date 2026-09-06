@@ -8,9 +8,9 @@
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
 /obj/item/paper/monitorkey,
-/obj/item/computer_disk/engineering,
-/obj/item/computer_disk/engineering,
-/obj/item/computer_disk/engineering,
+/obj/item/disk/computer/engineering,
+/obj/item/disk/computer/engineering,
+/obj/item/disk/computer/engineering,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/item/lighter,
 /turf/open/floor/iron,
@@ -37,10 +37,7 @@
 /area/station/command/heads_quarters/ce)
 "t" = (
 /obj/structure/table/reinforced,
-/obj/machinery/fax{
-	fax_name = "Chief Engineer's Office";
-	name = "Chief Engineer's Fax Machine"
-	},
+/obj/machinery/fax/heads/ce,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},

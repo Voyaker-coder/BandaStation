@@ -38,7 +38,7 @@
 /datum/outfit/centcom/ert/commander
 	name = "ERT Commander"
 
-	id = /obj/item/card/id/advanced/centcom/ert
+	id = /obj/item/card/id/advanced/centcom/ert/commander
 	back = /obj/item/mod/control/pre_equipped/responsory/commander
 	l_hand = /obj/item/gun/energy/e_gun
 	box = /obj/item/storage/box/survival/centcom
@@ -457,6 +457,9 @@
 	)
 
 /datum/outfit/centcom/death_commando/post_equip(mob/living/carbon/human/squaddie, visuals_only = FALSE)
+	var/obj/item/organ/eyes/robotic/tacvisor/deathsquad/visor = new()
+	visor.Insert(squaddie, movement_flags = DELETE_IF_REPLACED)
+
 	if(visuals_only)
 		return
 
@@ -481,7 +484,7 @@
 	if(!istype(mod))
 		return
 	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
-	var/obj/item/clothing/head/helmet/space/beret/beret = new(helmet)
+	var/obj/item/clothing/head/beret/centcom/beret = new(helmet)
 	var/datum/component/hat_stabilizer/component = helmet.GetComponent(/datum/component/hat_stabilizer)
 	component.attach_hat(beret)
 	squaddie.update_clothing(helmet.slot_flags)
@@ -489,7 +492,7 @@
 /datum/outfit/centcom/ert/marine
 	name = "Marine Commander"
 
-	id = /obj/item/card/id/advanced/centcom/ert
+	id = /obj/item/card/id/advanced/centcom/ert/commander
 	suit = /obj/item/clothing/suit/armor/vest/marine
 	suit_store = /obj/item/gun/ballistic/automatic/wt550
 	back = /obj/item/shield/riot
@@ -518,7 +521,7 @@
 
 	id = /obj/item/card/id/advanced/centcom/ert/medical
 	suit = /obj/item/clothing/suit/armor/vest/marine/medic
-	suit_store = /obj/item/storage/belt/holster/detective/full/ert
+	accessory = /obj/item/clothing/accessory/holster/tacticool/ert_gp93r //BANDASTATION EDIT: Accessory holsters
 	back = /obj/item/storage/backpack/ert/medical
 	l_pocket = /obj/item/healthanalyzer
 	head = /obj/item/clothing/head/helmet/marine/medic
@@ -554,7 +557,7 @@
 	name = "Militia Man"
 
 	id = /obj/item/card/id/advanced/centcom/ert/militia
-	belt = /obj/item/storage/belt/holster/energy/smoothbore
+	accessory = /obj/item/clothing/accessory/holster/energy/smoothborne //BANDASTATION EDIT: Accessory holsters
 	suit = /obj/item/clothing/suit/armor/militia
 	suit_store = /obj/item/gun/energy/laser/musket
 	head = /obj/item/clothing/head/cowboy/black

@@ -1,7 +1,7 @@
 /datum/heretic_knowledge_tree_column/void
 	route = PATH_VOID
 	ui_bgr = "node_void"
-	complexity = "Easy"
+	complexity = "Низкая"
 	complexity_color = COLOR_GREEN
 	icon = list(
 		"icon" = 'icons/obj/weapons/khopesh.dmi',
@@ -11,47 +11,48 @@
 		"moving" = FALSE,
 	)
 	description = list(
-		"The Path of Void focuses on stealth, freezing cold, mobility and depressurization.",
-		"Pick this path if you enjoy being a highly mobile assassin who leaves their foes struggling to catch up.",
+		"Путь Пустоты фокусируется на скрытности, леденящем холоде, подвижности и разгерметизациях.",
+		"Выберите этот путь, если вам нравится быть проворным убийцей, который не дает своим врагам возможности догнать его.",
 	)
 	pros = list(
-		"Protection from the hazards of space.",
-		"Your spells apply a stacking debuff that chills and slows targets.",
-		"High amount of mobility spells.",
-		"Highly stealthy.",
+		"Защита от космического пространства.",
+		"Ваши заклинания накладывают суммирующийся отрицательный эффект, который охлаждает и замедляет цели.",
+		"Большое количество заклинаний подвижности.",
+		"Высокая скрытность.",
 	)
 	cons = list(
-		"Though protected from space, you are not nearly as mobile in it as you are on foot.",
-		"Has a difficult time fighting opponents immune to cold effects.",
-		"Has a difficult time with silicon-based lifeforms.",
+		"Несмотря на то, что вы защищены от космического пространства, в нем вы далеко не так подвижны, как пешком.",
+		"Имеет затруднения в борьбе с противниками, устойчивых к холоду.",
+		"Испытывает сложности в борьбе синтетиками.",
 	)
 	tips = list(
-		"Your Mansus Grasp allows you to mute your targets, making it ideal for silent assassinations (keep in mind that it won't short circuit their suit sensors, make sure you turn them off after you kill them). Yhe grasp also applies a mark that when triggered by the void blade will apply the maximum amount of stacks of void chill to your target, slowing them down to a crawl.",
-		"Void Cloak can be used to hide one of your blades and a Codex Cicatrix when the hood is down,  while acting as a focus when it's up.",
-		"Void chill is a debuff applied by your spells, your grasp, your mark and your blade once you unlock the upgrade. Each stack slows your target movement speed by 10% and make them gradually colder, up to a maximum of 5 stacks.",
-		"At 5 stacks void chill will also prevent your target from heating up.",
-		"You are immune to low pressure and cold damage at the start of the shift. Upgrade your passive to level 2 to no longer need to breathe. Use this to your advantage.",
-		"Void prison can put a target in stasis for 10 seconds. Ideal if you are fighting multiple opponents and need to isolate one target at a time.",
-		"Void Conduit is your signature ability. It slowly destroys windows and airlocks around its area of effect. Use it to depressurize the station and expand your domain.",
+		"«Хватка Мансуса» лишает противника дара речи, делая её идеальным инструментом для тихого убийства (Держите в уме, что датчики она не выключает, и вам придется это делать самостоятельно). Хватка накладывает метку, срабатывающую при ударе клинком Пустоты, активация метки наложит экстремальное переохлаждение, значительно замедляя цель.",
+		"Накидка Пустоты может быть использована для сокрытия клинка Пустоты и кодекса Цикатрикс при опущенном капюшоне, и для фокусировки заклинаний при поднятом.",
+		"«Холод Пустоты» - это отрицательный эффект, накладываемый вашими заклинаниями, вашей Хваткой, вашими метками и вашим клинком, когда вы откроете его улучшения. Каждый раз, накладывая эффект, вы будете замедлять противника на 10%, вплоть до 50%.",
+		"При накоплении 5 стаков «Холода Пустоты», цель теряет возможность согреться.",
+		"Вы невосприимчивы к низким температурам и низкому давлению с начала смены. Поднимите свой пассивный навык до второго уровня и у вас пропадет потребность в дыхании. Используйте это себе на пользу.",
+		"«Пустотная тюрьма» может ввести цель в стазис на 10 секунд. Идеально, если вы сражаетесь с несколькими противниками, и вам нужно изолировать одну цель за раз.",
+		"«Поток Пустоты» - ваша сигнатурная способность. Она медленно разрушает окна и воздушные шлюзы в зоне своего действия. Используйте это для создания разгерметизаций и расширения своей зоны контроля.",
 	)
 
 	start = /datum/heretic_knowledge/limited_amount/starting/base_void
 	knowledge_tier1 = /datum/heretic_knowledge/spell/void_phase
 	guaranteed_side_tier1 = /datum/heretic_knowledge/void_cloak
-	knowledge_tier2 = /datum/heretic_knowledge/spell/void_prison
+	knowledge_tier2 = /datum/heretic_knowledge/void_prison
 	guaranteed_side_tier2 = /datum/heretic_knowledge/ether
 	robes = /datum/heretic_knowledge/armor/void
 	knowledge_tier3 = /datum/heretic_knowledge/spell/void_pull
 	guaranteed_side_tier3 = /datum/heretic_knowledge/summon/maid_in_mirror
 	blade = /datum/heretic_knowledge/blade_upgrade/void
-	knowledge_tier4 = /datum/heretic_knowledge/spell/void_conduit
+	knowledge_tier4 = /datum/heretic_knowledge/void_conduit
 	ascension = /datum/heretic_knowledge/ultimate/void_final
 
 /datum/heretic_knowledge/limited_amount/starting/base_void
-	name = "Glimmer of Winter"
-	desc = "Открывает перед вами Путь пустоты. \
-		Позволяет трансмутировать нож при отрицательных температурах в Пустотный клинок. \
-		дновременно можно иметь только два."
+	name = "Проблеск Зимы"
+	desc = "Открывает перед вами Путь Пустоты. \
+		Позволяет создать Пустотный клинок. \
+		Одновременно можно иметь только два."
+	transmute_text = "Трансмутируйте нож при отрицательных температурах."
 	gain_text = "Я чувствую мерцание в воздухе, воздух вокруг меня становится холоднее. \
 		Я начинаю осознавать пустоту существования. Что-то наблюдает за мной."
 	required_atoms = list(/obj/item/knife = 1)
@@ -84,36 +85,67 @@
 	carbon_target.apply_status_effect(/datum/status_effect/void_chill, 2)
 
 /datum/heretic_knowledge/spell/void_phase
-	name = "Void Phase"
-	desc = "Дарует вам Void Phase, заклинание телепортации дальнего действия. \
-		Дополнительно наносит урон язычникам вокруг вашей первоначальной и целевой цели."
+	name = "Фаза Пустоты"
+	desc = "Дарует вам «Фазу Пустоты» - заклинание телепортации дальнего действия. \
+		Дополнительно наносит урон язычникам около места входа и места выхода из фазы."
 	gain_text = "Сущность называет себя Аристократом. Он легко проходит сквозь воздух, \
 		оставляя за собой резкий холодный ветер. Он исчезает, а я остаюсь в метели."
 	action_to_add = /datum/action/cooldown/spell/pointed/void_phase
 	cost = 2
 	research_tree_icon_frame = 7
+	max_charges = 4
+	path_recharge_amount = 0.25
+	focus_recharge_amount = 0.25
+	holywater_drain_amount = 0.25
 
-/datum/heretic_knowledge/spell/void_prison
-	name = "Void Prison"
-	desc = "Grants you Void Prison, a spell that places your victim into a ball, making them unable to do anything or speak. \
-		Applies void chill afterwards."
-	gain_text = "At first, I see myself, waltzing along a snow-laden street. \
-		I try to yell, grab hold of this fool and tell them to run. \
-		But the only welts made are on my own beating fist. \
-		My smiling face turns to regard me, reflecting back in glassy eyes the empty path I have been lead down."
-
-	action_to_add = /datum/action/cooldown/spell/pointed/void_prison
+/datum/heretic_knowledge/void_prison
+	name = "Пустотная тюрьма"
+	desc = "Позволяет получить «Пустотную тюрьму». Пустотная тюрьма - это сфера, которая при использовании помещает всех ближайших непомеченных язычников в стазис на 10 секунд. \
+		Находясь внутри сферы, они не могут говорить, действовать или получать урон. Пустотная тюрьма расходуется после одного применения."
+	transmute_text = "Трансмутируйте наручники, оглушающую дубинку и шкаф при отрицательных температурах."
+	gain_text = "В начале я видел себя, танцующим на заснеженной улице. \
+		Я пытаюсь закричать, схватить этого дурака и сказать им, чтобы они бежали. \
+		Но рубцы остались только на моём избивающем кулаке. \
+		Мое улыбающееся лицо поворачивается ко мне, и в остекленевших глазах отражается тот пустой путь, на который меня завели."
+	required_atoms = list(
+		/obj/item/restraints/handcuffs = 1,
+		/obj/structure/closet = 1,
+		/obj/item/melee/baton/security = 1,
+	)
+	result_atoms = list(/obj/item/void_prison)
 	cost = 2
 	drafting_tier = 5
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "voidball"
+
+	var/list/closet_blacklist = list(
+		/obj/structure/closet/crate,
+		/obj/structure/closet/body_bag,
+		/obj/structure/closet/cardboard,
+		/obj/structure/closet/infinite,
+	)
+
+/datum/heretic_knowledge/void_prison/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+	. = ..()
+	for(var/obj/structure/closet/closet in atoms)
+		if(is_type_in_list(closet, closet_blacklist))
+			atoms -= closet
+
+/datum/heretic_knowledge/void_prison/cleanup_atoms(list/selected_atoms)
+	for(var/obj/structure/closet/closet in selected_atoms)
+		closet.dump_contents()
+
+	return ..()
 
 /datum/heretic_knowledge/armor/void
-	name = "Hollow Weave"
-	desc = "Allows you to transmute a table (or a suit) and a mask in sub-zero temperatures to create a Hollow Weave, this armor will periodically nullify attacks and grant you a short stealth camoflage to reposition yourself. \
-			Acts as a focus while hooded."
-	gain_text = "Stepping through the cold air, I am shocked by a new sensation. \
-				Thousands of almost imperceivable threads cling to my form. \
-				I am left adrift with every step. \
-				Even as I hear the crunch of snow as I plant my foot to the ground, I feel nothing."
+	name = "Сплетение Пустоты"
+	desc = "Создаёт Сплетение Пустоты. Эта броня будет время от времени нейтрализовывать атаки по вам и ненадолго маскировать вас, давая сменить позицию. \
+		Действует как фокусировка, пока надет капюшон."
+	transmute_text = "Трансмутируйте стол (или костюм) и маску при отрицательных температурах."
+	gain_text = "Ступая сквозь холодный воздух, я был шокирован новыми ощущениями. \
+		Тысячи почти неуловимых нитей цепляются за мою фигуру. \
+		С каждым шагом я теряюсь в догадках. \
+		Даже когда я слышу хруст снега, когда ставлю ногу на землю, я не чувствую ничего."
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/void)
 	research_tree_icon_state = "void_armor"
 	required_atoms = list(
@@ -123,31 +155,34 @@
 
 /datum/heretic_knowledge/armor/void/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	if(!isopenturf(loc))
-		loc.balloon_alert(user, "ritual failed, invalid location!")
+		loc.balloon_alert(user, "ритуал провален, неподходящее место!")
 		return FALSE
 
 	var/turf/open/our_turf = loc
 	if(our_turf.GetTemperature() > T0C)
-		loc.balloon_alert(user, "ritual failed, not cold enough!")
+		loc.balloon_alert(user, "ритуал провален, недостаточно холодно!")
 		return FALSE
 
 	return ..()
 
 /datum/heretic_knowledge/spell/void_pull
-	name = "Void Pull"
-	desc = "Grants you Void Pull, a spell that pulls all nearby heathens towards you, stunning them briefly."
-	gain_text = "All is fleeting, but what else stays? I'm close to ending what was started. \
-		The Aristocrat reveals themselves to me again. They tell me I am late. Their pull is immense, I cannot turn back."
+	name = "Притяжение Пустоты"
+	desc = "Дарует вам «Притяжение Пустоты» - заклинание, притягивающее к вам всех близлежащих язычников, ненадолго оглушая их."
+	gain_text = "Всё мимолетно, но что ещё остаётся? Я близок к завершению того, что было начато. \
+		Аристократ снова раскрывает себя мне. Они говорят мне, что я опоздал. Их притяжение огромно, я не могу повернуть назад."
 
 	action_to_add = /datum/action/cooldown/spell/aoe/void_pull
 	cost = 2
 	research_tree_icon_frame = 6
+	max_charges = 4
+	path_recharge_amount = 0.25
+	focus_recharge_amount = 0.25
+	holywater_drain_amount = 0.25
 
 /datum/heretic_knowledge/blade_upgrade/void
-	name = "Seeking Blade"
-	desc = "Ваш клинок теперь замораживает врагов. К тому же, теперь вы можете атаковать отмеченные цели на расстоянии Пустотным клинком, телепортируясь прямо к ним. "
+	name = "Ищущий клинок"
+	desc = "Ваш клинок теперь замораживает врагов. К тому же, теперь вы можете атаковать отмеченные цели на расстоянии Пустотным клинком, телепортируясь прямо к ним."
 	gain_text = "Мимолетные воспоминания, мимолетные ноги. Я отмечаю свой путь застывшей кровью на снегу. Покрытый и забытый."
-
 
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_upgrade_void"
@@ -158,8 +193,11 @@
 
 	target.apply_status_effect(/datum/status_effect/void_chill, 2)
 
-/datum/heretic_knowledge/blade_upgrade/void/do_ranged_effects(mob/living/user, mob/living/target, obj/item/melee/sickly_blade/blade)
-	if(!target.has_status_effect(/datum/status_effect/eldritch))
+/datum/heretic_knowledge/blade_upgrade/void/do_ranged_effects(mob/living/user, atom/target, obj/item/melee/sickly_blade/blade)
+	if(!isliving(target))
+		return
+	var/mob/living/living_target = target
+	if(!living_target.has_status_effect(/datum/status_effect/eldritch))
 		return
 
 	var/dir = angle2dir(dir2angle(get_dir(user, target)) + 180)
@@ -170,23 +208,93 @@
 /datum/heretic_knowledge/blade_upgrade/void/proc/follow_up_attack(mob/living/user, mob/living/target, obj/item/melee/sickly_blade/blade)
 	blade.melee_attack_chain(user, target)
 
-/datum/heretic_knowledge/spell/void_conduit
-	name = "Void Conduit"
-	desc = "Grants you Void Conduit, a spell which summons a pulsing gate to the Void itself. Every pulse breaks windows and airlocks, while afflicting Heathens with an eldritch chill and shielding Heretics against low pressure."
-	gain_text = "The hum in the still, cold air turns to a cacophonous rattle. \
-		Over the noise, there is no distinction to the clattering of window panes and the yawning knowledge that ricochets through my skull. \
-		The doors won't close. I can't keep the cold out now."
-	action_to_add = /datum/action/cooldown/spell/conjure/void_conduit
+/datum/heretic_knowledge/void_conduit
+	name = "Поток Пустоты"
+	desc = "Усиливает ваш клинок, позволяя прорвать саму ткань пространства. \
+		Атака космоса одним из ваших Пустотных клинков создаст поток в Пустоту, наносящий урон и накладывающий холод на ближайших язычников, а также разрушающий окна и воздушные шлюзы в области."
+	notice = "Клинок расходуется в процессе. Вы также можете использовать эту способность на снегу или на любом тайле в полном вакууме."
+	gain_text = "Гул в неподвижном, холодном воздухе превращается в какофонию грохотов. \
+		За этим шумом невозможно различить стук оконных стекол и зияющее знание, которое рикошетом отдается в моем черепе. \
+		Врата не затворятся. Я не могу сдержать этот холод."
 	cost = 2
 	is_final_knowledge = TRUE
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "void_rift"
+	research_tree_icon_frame = 12
+
+/datum/heretic_knowledge/void_conduit/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
+	. = ..()
+	RegisterSignal(user, COMSIG_HERETIC_BLADE_PREATTACK, PROC_REF(on_blade_preattack))
+
+/datum/heretic_knowledge/void_conduit/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
+	. = ..()
+	UnregisterSignal(user, COMSIG_HERETIC_BLADE_PREATTACK)
+
+/datum/heretic_knowledge/void_conduit/proc/is_valid_turf(turf/open/affected_turf)
+	// space is the obvious one, snow is for icebox
+	if(isspaceturf(affected_turf) || issnowturf(affected_turf))
+		return TRUE
+	// works in any vacuum as a backup
+	var/datum/gas_mixture/air = affected_turf.return_air()
+	if(air?.return_pressure() <= 0)
+		return TRUE
+	return FALSE
+
+/datum/heretic_knowledge/void_conduit/proc/is_valid_turf_callback(turf/open/affected_turf, mob/living/source, obj/item/sword)
+	if(!source.is_holding(sword))
+		return FALSE
+	if(!is_valid_turf(affected_turf))
+		return FALSE
+	if(affected_turf.GetTemperature() > T0C)
+		return FALSE
+	return TRUE
+
+/datum/heretic_knowledge/void_conduit/proc/on_blade_preattack(mob/living/source, atom/target, obj/item/sword)
+	SIGNAL_HANDLER
+	if(!isopenturf(target))
+		return NONE
+
+	var/turf/open/affected_turf = target
+	if(!is_valid_turf(affected_turf))
+		return NONE
+
+	if(affected_turf.GetTemperature() <= T0C)
+		INVOKE_ASYNC(src, PROC_REF(create_conduit), affected_turf, source, sword)
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+	to_chat(source, span_mansus("[sword] гудит от силы, но [target] недостаточно холоден, чтобы создать поток!"))
+	return NONE
+
+/datum/heretic_knowledge/void_conduit/proc/create_conduit(turf/open/affected_turf, mob/living/source, obj/item/sword)
+	playsound(source, 'sound/effects/cloth_rip.ogg', 50, TRUE) // funny thing is, can't hear sound in a vacuum
+	to_chat(source, span_mansus("Вы вонзаете [sword] глубоко в [affected_turf], пытаясь прорвать поток в Пустоту!"))
+	source.visible_message(
+		span_hypnophrase("[source] вонзает [sword.name] в [affected_turf] - \
+			[isspaceturf(affected_turf) ? "внешнюю оболочку станции" : "напольное покрытие"], и оттуда начинает раздаваться пустотный гул!"),
+		ignored_mobs = source,
+	)
+	var/obj/effect/temp_visual/void_conduit_opening/animation = new(affected_turf)
+	if(!do_after(source, 5 SECONDS, affected_turf, extra_checks = CALLBACK(src, PROC_REF(is_valid_turf_callback), affected_turf, source, sword)))
+		animate(animation, alpha = 0, time = 1 SECONDS)
+		QDEL_IN(animation, 1 SECONDS)
+		return
+	to_chat(source, span_mansus("Поток открывается, высвобождая бурю энергии Пустоты! [sword] разлетается на миллион мелких осколков!"))
+	source.visible_message(
+		span_hypnophrase("Поток в Пустоту открывается, высвобождая бурю пустотной энергии!"),
+		ignored_mobs = source,
+	)
+	new /obj/structure/void_conduit(affected_turf)
+	source.dropItemToGround(sword)
+	qdel(sword)
+	playsound(source, SFX_SHATTER, 50, FALSE)
 
 /datum/heretic_knowledge/ultimate/void_final
-	name = "Waltz at the End of Time"
-	desc = "Ритуал вознесения Пути пустоты. \
-		Принесите 3 трупа к руне трансмутации при отрицательных температурах, чтобы завершить риAdditionally, you will become immune to the effects of space.туал. \
+	name = "Вальс Конца Времен"
+	desc = "Ритуал вознесения Пути Пустоты. \
 		После завершения вызывает сильный шторм пустотного снега, \
 		который обрушивается на станцию, замораживая и повреждая язычников. Те, кто находится поблизости, замолчат и замерзнут еще быстрее. \
 		Кроме того, у вас появится иммунитет к воздействию космоса."
+	transmute_text = "Трансмутируйте 3 трупа при отрицательных температурах."
 	gain_text = "Мир погружается во тьму. Я стою в пустом мире, с неба падают мелкие хлопья льда. \
 		Аристократ стоит передо мной, призывая. Мы будем играть вальс под шепот умирающей реальности, \
 		пока мир разрушается на наших глазах. Пустота вернет все в ничто, УЗРИТЕ МОЕ ВОЗНЕСЕНИЕ!"
@@ -203,7 +311,7 @@
 
 /datum/heretic_knowledge/ultimate/void_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	if(!isopenturf(loc))
-		loc.balloon_alert(user, "ритуал провален, неподходящая локация!")
+		loc.balloon_alert(user, "ритуал провален, неподходящее место!")
 		return FALSE
 
 	var/turf/open/our_turf = loc
@@ -246,6 +354,8 @@
 	for(var/atom/thing_in_range as anything in range(10, source))
 		if(iscarbon(thing_in_range))
 			var/mob/living/carbon/close_carbon = thing_in_range
+			if(close_carbon.can_block_magic())
+				continue
 			if(IS_HERETIC_OR_MONSTER(close_carbon))
 				close_carbon.apply_status_effect(/datum/status_effect/void_conduit)
 				continue
@@ -305,8 +415,8 @@
 		return NONE
 
 	ascended_heretic.visible_message(
-		span_danger("The void storm surrounding [ascended_heretic] deflects [hitting_projectile]!"),
-		span_userdanger("The void storm protects you from [hitting_projectile]!"),
+		span_danger("Буря Пустоты, окружающая [ascended_heretic.declent_ru(GENITIVE)] отклоняет [hitting_projectile.declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("Буря Пустоты защитила вас от [hitting_projectile.declent_ru(ACCUSATIVE)]!"),
 	)
 	playsound(ascended_heretic, SFX_VOID_DEFLECT, 75, TRUE)
 	hitting_projectile.firer = ascended_heretic

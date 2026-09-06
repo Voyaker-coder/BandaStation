@@ -77,7 +77,7 @@
 				reward /= 5
 			else if(isabductor(human_target))
 				reward *= 4
-			else if(isgolem(human_target) || iszombie(human_target))
+			else if(isgolem(human_target) || human_target.has_status_effect(/datum/status_effect/zombie))
 				reward *= 3
 			else if(isjellyperson(human_target) || ispodperson(human_target))
 				reward *= 2
@@ -113,26 +113,26 @@
 
 /obj/item/research_notes/examine(mob/user)
 	. = ..()
-	. += span_notice("It is worth [value] research points.")
+	. += span_notice("Это стоит [value] исследовательских очков.")
 
-/obj/item/research_notes/attackby(obj/item/attacking_item, mob/living/user, list/modifiers, list/attack_modifiers)
-	if(istype(attacking_item, /obj/item/research_notes))
-		var/obj/item/research_notes/notes = attacking_item
-		value = value + notes.value
-		change_vol()
-		qdel(notes)
-		return
-	return ..()
+/obj/item/research_notes/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(!istype(tool, /obj/item/research_notes))
+		return NONE
+	var/obj/item/research_notes/notes = tool
+	value = value + notes.value
+	change_vol()
+	qdel(notes)
+	return ITEM_INTERACT_SUCCESS
 
 /// proc that changes name and icon depending on value
 /obj/item/research_notes/proc/change_vol()
-	if(value >= 10000)
+	if(value >= TECHWEB_TIER_5_POINTS)
 		name = "Революционное открытие в области [origin_type]"
 		icon_state = "docs_verified"
-	else if(value >= 2500)
+	else if(value >= TECHWEB_TIER_3_POINTS)
 		name = "Эссе о [origin_type]"
 		icon_state = "paper_words"
-	else if(value >= 100)
+	else if(value >= TECHWEB_TIER_1_POINTS)
 		name = "Примечания к [origin_type]"
 		icon_state = "paperslip_words"
 	else
@@ -145,7 +145,7 @@
 	value = value + new_paper.value
 	if(origin_type != new_paper.origin_type && !mixed)
 		value += bonus * 0.3
-		origin_type = "[origin_type] and [new_paper.origin_type]"
+		origin_type = "[origin_type] и [new_paper.origin_type]"
 		mixed = TRUE
 	change_vol()
 	qdel(new_paper)

@@ -4,6 +4,7 @@
 		Чтобы сохранить секретность, мы можем говорить через обманку, как через обычный мозг. \
 		Ложный мозг будет передавать вам услышанную речь в фиолетовом цвете."
 	button_icon = 'icons/obj/devices/assemblies.dmi'
+	category = "stealth"
 	button_icon_state = "mmi_off"
 	dna_cost = CHANGELING_POWER_UNOBTAINABLE
 	ignores_fakedeath = TRUE // Can be used while fake dead
@@ -113,7 +114,7 @@
 		return FALSE
 
 	var/obj/item/mmi/mmi = brain_ref.loc
-	if(mmi.brainmob.stat != CONSCIOUS)
+	if(IS_UNCONSCIOUS_OR_CRIT(mmi.brainmob))
 		to_chat(usr, span_warning("Наш ложный мозг слишком поврежден, чтобы говорить."))
 	else
 		// Say will perform input sanitization and such for us

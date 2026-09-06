@@ -7,11 +7,31 @@
 		return "<a href='byond://?src=[REF(src)];track=[html_encode(namepart)]'>"
 	return ""
 
+//BANDA STATION ADDITION - AI DOOR
+/mob/living/silicon/proc/compose_open_door_href(atom/movable/speaker)
+	var/mob/living/target = speaker.GetSource()
+
+	if(!target || !isliving(target))
+		return ""
+
+	var/mob/living/silicon/ai/controller
+	if(isAI(src))
+		controller = src
+	else if(iscyborg(src))
+		var/mob/living/silicon/robot/bot = src
+		if(bot.shell && bot.connected_ai)
+			controller = bot.connected_ai
+
+	return controller ? " <a href='byond://?src=[REF(controller)];open=[REF(target)]'>\[OPEN\]</a>" : ""
+
+//BANDA STATION ADDITION END
+
 /mob/living/silicon/compose_job(atom/movable/speaker, message_langs, raw_message, radio_freq)
 	//Also includes the </a> for AI hrefs, for convenience.
 	if(!HAS_TRAIT(src, TRAIT_CAN_GET_AI_TRACKING_MESSAGE))
 		return ""
-	return "[radio_freq ? " (" + speaker.GetJob() + ")" : ""]" + "[speaker.GetSource() ? "</a>" : ""]"
+
+	return "[radio_freq ? " ([speaker.GetJob()])" : ""][speaker.GetSource() ? "</a>" : ""][compose_open_door_href(speaker)]" //BANDA STATION ADDITION - AI DOOR
 
 /mob/living/silicon/ai/try_speak(message, ignore_spam = FALSE, forced = null, filterproof = FALSE)
 	// AIs cannot speak if silent AI is on.
@@ -30,14 +50,17 @@
 		return FALSE
 	. = ..()
 	if(.)
+		do_tts_message(message, language, message_mods, list(), list())
 		return .
 	if(message_mods[MODE_HEADSET])
 		if(radio)
 			radio.talk_into(src, message, , spans, language, message_mods)
+			do_tts_message(message, language, message_mods, list(), list())
 		return NOPASS
 	else if(message_mods[RADIO_EXTENSION] in GLOB.default_radio_channels)
 		if(radio)
 			radio.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
+			do_tts_message(message, language, message_mods, list(), list())
 			return NOPASS
 	return FALSE
 
@@ -65,11 +88,7 @@
 // Make sure that the code compiles with AI_VOX undefined
 #ifdef AI_VOX
 #define VOX_DELAY 600
-/mob/living/silicon/ai/verb/announcement_help()
-
-	set name = "Announcement Help"
-	set desc = "Display a list of vocal words to announce to the crew."
-	set category = "AI Commands"
+GAME_VERB_DESC(/mob/living/silicon/ai, announcement_help, "Announcement Help", "Display a list of vocal words to announce to the crew.", "AI Commands")
 
 	if(incapacitated)
 		return
@@ -203,7 +222,7 @@
 			for(var/mob/player_mob as anything in GLOB.player_list)
 				var/pref_volume = safe_read_pref(player_mob.client, /datum/preference/numeric/volume/sound_ai_vox)
 				pref_volume *= vox_volume_modifier // BANDASTATION EDIT
-				if(!player_mob.can_hear() || !pref_volume)
+				if(HAS_TRAIT(player_mob, TRAIT_DEAF) || !pref_volume)
 					continue
 
 				var/turf/player_turf = get_turf(player_mob)

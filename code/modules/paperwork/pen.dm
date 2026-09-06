@@ -185,11 +185,12 @@
 /datum/atom_skin/cap_pen
 	abstract_type = /datum/atom_skin/cap_pen
 
-/datum/atom_skin/cap_pen/apply(atom/apply_to)
+/datum/atom_skin/cap_pen/apply(atom/apply_to, mob/user)
 	. = ..()
 	apply_to.desc = "It's an expensive [preview_name] fountain pen. The nib is quite sharp."
+	apply_to.update_desc()
 
-/datum/atom_skin/cap_pen/clear_skin(atom/clear_from)
+/datum/atom_skin/cap_pen/clear_skin(atom/clear_from, mob/user)
 	. = ..()
 	clear_from.desc = initial(clear_from.desc)
 
@@ -244,9 +245,11 @@
 		speed = 20 SECONDS, \
 		effectiveness = 115, \
 	)
-	AddComponent(/datum/component/reskinable_item, /datum/atom_skin/cap_pen)
 	//the pen is mightier than the sword
 	RegisterSignal(src, COMSIG_DART_INSERT_PARENT_RESKINNED, PROC_REF(reskin_dart_insert))
+
+/obj/item/pen/fountain/captain/setup_reskins()
+	AddComponent(/datum/component/reskinable_item, /datum/atom_skin/cap_pen)
 
 /obj/item/pen/fountain/captain/proc/reskin_dart_insert(datum/component/dart_insert/insert_comp, skin)
 	SIGNAL_HANDLER
@@ -571,6 +574,7 @@
 	desc = "This is a red ink pen exclusively provided to members of the Security Department. Its opposite end features a built-in holographic projector designed for issuing arrest prompts to individuals."
 	icon_state = "pen_sec"
 	COOLDOWN_DECLARE(holosign_cooldown)
+	custom_materials = list(/datum/material/iron = SMALL_MATERIAL_AMOUNT)
 
 /obj/item/pen/red/security/examine(mob/user)
 	. = ..()

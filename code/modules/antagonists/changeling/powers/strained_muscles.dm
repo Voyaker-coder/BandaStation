@@ -6,6 +6,7 @@
 	desc = "Мы развиваем способность уменьшать накопление кислоты в наших мышцах, что позволяет нам двигаться гораздо быстрее."
 	helptext = "Нагрузка вызовет у нас усталость, и мы быстро выдохнемся. Обычные ограничения по весу, как у космических скафандров, все еще действуют. Не может быть использовано в меньшей форме."
 	button_icon_state = "strained_muscles"
+	category = "utility"
 	chemical_cost = 0
 	dna_cost = 1
 	req_human = TRUE
@@ -40,7 +41,7 @@
 			return
 
 		user.add_movespeed_modifier(/datum/movespeed_modifier/strained_muscles)
-		if(user.stat != CONSCIOUS || user.staminaloss >= 90)
+		if(IS_UNCONSCIOUS_OR_CRIT(user) || user.staminaloss >= 90)
 			active = !active
 			to_chat(user, span_notice("Наши мышцы расслабляются, не получая энергии для их укрепления."))
 			user.Paralyze(40)

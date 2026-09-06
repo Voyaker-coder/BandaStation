@@ -2,6 +2,7 @@ import '../styles/interfaces/AntagInfoHeretic.scss';
 
 import { useState } from 'react';
 import {
+  BlockQuote,
   Box,
   Button,
   DmIcon,
@@ -64,8 +65,9 @@ type Knowledge = {
   depth: number;
   done: BooleanLike;
   ascension: BooleanLike;
-  disabled: BooleanLike;
-  tooltip?: string;
+  disabled?: BooleanLike;
+  notice?: string;
+  info?: string;
 };
 
 enum ShopCategory {
@@ -81,6 +83,7 @@ type KnowledgeTier = {
 
 type HereticPassive = {
   name: string;
+  recharge: string;
   description: string[];
 };
 
@@ -117,7 +120,7 @@ const IntroductionSection = (props) => {
   return (
     <Stack justify="space-evenly" height="100%" width="100%">
       <Stack.Item grow>
-        <Section title="Вы Еретик!" fill fontSize="14px">
+        <Section title="Вы Еретик!" fill fontSize="14px" scrollable>
           <Stack vertical>
             <FlavorSection />
             <Stack.Divider />
@@ -224,8 +227,8 @@ const GuideSection = () => {
         </Stack.Item>
         <Stack.Item>
           - Сделайте себе <span style={hereticYellow}>фокусировку</span>, чтобы
-          читать более продвинутые заклинания, которые помогут вам для более
-          сложных жертвоприношений.
+          читать более продвинутые заклинания, которые помогут вам с более
+          сложными жертвоприношениями.
         </Stack.Item>
         <Stack.Item>
           - Выполните все свои задачи, чтобы узнать{' '}
@@ -233,20 +236,21 @@ const GuideSection = () => {
           чтобы стать всемогущим!
         </Stack.Item>
         <Stack.Item>
-          <span style={hereticRed}>WARNING!</span>
-          <br /> Accumulating a total of <b>{points_to_aura}</b>&nbsp;
-          <span style={hereticBlue}>knowledge points</span>
-          &nbsp;to manifest a visible aura of&nbsp;
-          <span style={hereticPurple}>Mansus energy</span> around you. Simply
-          gaining the points is sufficent, spending them will not trigger it.
+          <span style={hereticRed}>ВНИМАНИЕ!</span>
+          <br /> При накоплении в общем <b>{points_to_aura}</b>&nbsp;
+          <span style={hereticBlue}> очков знаний,</span>
+          &nbsp; вас окружит&nbsp;
+          <span style={hereticPurple}>энергия Мансуса</span>. Для получения ауры
+          необходимо потратить очки знаний, простое получение не раскроет вас.
           <br />
-          This aura will be visible to all those around you and will mark you as
-          a heretic. Consider the risks before accumulating too much knowledge!
+          Эта аура пометит вас как приверженца еретического пути, раскрыв вас
+          для любого смотрящего. Подумайте о рисках, прежде чем накапливать
+          слишком много знаний!
           <br />
-          Keep in mind that using a&nbsp;
-          <span style={hereticPurple}>Codex Cicatrix</span> will also make you
-          very obvious as a heretic when draining&nbsp;
-          <span style={hereticYellow}>influences</span>
+          Держите в уме, что использование&nbsp;
+          <span style={hereticPurple}> кодекса Цикатрикс</span> при поглощении
+          &nbsp;<span style={hereticYellow}>разлома </span>
+          сделает вашу приверженность еретическому пути довольно очевидной.
         </Stack.Item>
       </Stack>
     </Stack.Item>
@@ -293,11 +297,11 @@ const KnowledgeTree = () => {
   return (
     <Section title="Древо знаний" fill scrollable>
       <Box textAlign="center" fontSize="32px">
-        <span style={hereticYellow}>DAWN</span>
+        <span style={hereticYellow}>РАССВЕТ</span>
       </Box>
       <Stack vertical>
         {nodesToShow.length === 0
-          ? 'None!'
+          ? 'Нет!'
           : nodesToShow.map((tier, i) => (
               <Stack.Item key={i}>
                 <Stack
@@ -322,6 +326,38 @@ const KnowledgeTree = () => {
     </Section>
   );
 };
+
+// take &bull; in from byond and make sure it's rendered properly
+function bulletpointHelper(text: string) {
+  return text.replace(/&bull;/g, '•');
+}
+
+// description or info text may have <br>s,
+// we need translate it into separate children for the tooltip to render it properly
+function formatTooltipText(text: string) {
+  return (
+    <Stack vertical>
+      {text.split('<br>').map((line, index) => {
+        const isBulletPoint = line.includes('&bull;');
+        if (isBulletPoint) {
+          line = line.replace(/&bull;/g, '•');
+        }
+        return (
+          <Stack.Item
+            key={index}
+            // hacky. pretty much solely exists to make Unsealed Arts readable.
+            // stretches beyond the bounds of the tooltip to avoid getting cut off.
+            // call it a format screw
+            fontSize={isBulletPoint ? '10px' : undefined}
+            width={isBulletPoint ? '110%' : undefined}
+          >
+            {line}
+          </Stack.Item>
+        );
+      })}
+    </Stack>
+  );
+}
 
 type KnowledgeNodeProps = {
   node: Knowledge;
@@ -354,9 +390,30 @@ const KnowledgeNode = (props: KnowledgeNodeProps) => {
       <Button
         color="transparent"
         tooltip={
-          node.tooltip ??
-          `${node.name}:
-          ${node.desc}`
+          <Stack vertical>
+            <Stack.Item align="center" fontSize="16px">
+              <b>{node.name}</b>
+            </Stack.Item>
+            <Stack.Item>
+              <BlockQuote>
+                <span style={hereticPurple}>Результат: </span>{' '}
+              </BlockQuote>
+              {formatTooltipText(node.desc)}
+            </Stack.Item>
+            {!!node.notice && (
+              <Stack.Item color="red">
+                {formatTooltipText(node.notice)}
+              </Stack.Item>
+            )}
+            {!!node.info && (
+              <Stack.Item>
+                <BlockQuote>
+                  <span style={hereticGreen}>Рецепт: </span>{' '}
+                </BlockQuote>
+                {formatTooltipText(node.info)}
+              </Stack.Item>
+            )}
+          </Stack>
         }
         onClick={
           !isBuyable
@@ -401,12 +458,12 @@ const KnowledgeNode = (props: KnowledgeNodeProps) => {
           bold
           style={{ margin: '2px', borderRadius: '100%' }}
         >
-          {isBuyable && (node.cost > 0 ? node.cost : 'FREE')}
+          {isBuyable && (node.cost > 0 ? node.cost : 'ДАР')}
         </Box>
       </Button>
       {!!node.ascension && (
         <Box textAlign="center" fontSize="32px">
-          <span style={hereticPurple}>DUSK</span>
+          <span style={hereticPurple}>ЗАКАТ</span>
         </Box>
       )}
     </Stack.Item>
@@ -422,7 +479,7 @@ const KnowledgeShop = () => {
   }
 
   return (
-    <Section title="Knowledge Shop" fill scrollable>
+    <Section title="Магазин знаний" fill scrollable>
       <Stack vertical fill>
         <Knowledges />
       </Stack>
@@ -442,7 +499,7 @@ const KnowledgeShop = () => {
 
     return tiers?.map((tier, index) => (
       <Stack.Item key={`tier-${index}`}>
-        Tier {index + 1}
+        Уровень {index + 1}
         <Stack fill scrollable wrap="wrap">
           {tier.map((knowledge) => (
             <Stack.Item key={`knowledge-${knowledge.path}`}>
@@ -464,7 +521,7 @@ const ResearchInfo = () => {
   const { charges, knowledge_shop } = data;
 
   return (
-    <>
+    <Stack vertical fill>
       <Stack.Item mb={1.5} fontSize="20px" textAlign="center">
         Доступные <span style={hereticBlue}>очки знаний</span> :{' '}
         <b>{charges || 0}</b>&nbsp;.
@@ -473,13 +530,13 @@ const ResearchInfo = () => {
         <Stack.Item grow>
           <KnowledgeTree />
         </Stack.Item>
-        {knowledge_shop?.length && (
+        {!!knowledge_shop?.length && (
           <Stack.Item grow>
             <KnowledgeShop />
           </Stack.Item>
         )}
       </Stack>
-    </>
+    </Stack>
   );
 };
 
@@ -520,6 +577,147 @@ const PathInfo = ({ currentPath }: { currentPath?: HereticPath }) => {
   );
 };
 
+const PathProCons = ({
+  proconlist,
+  title,
+}: {
+  proconlist: string[];
+  title: string;
+}) => {
+  return (
+    <Stack vertical>
+      <Stack.Item>
+        <b>{title}:</b>
+      </Stack.Item>
+      <Stack.Item>
+        {proconlist.map((item, index) => (
+          <Stack.Item key={index} textAlign="left" mb={1}>
+            &bull; {item}
+          </Stack.Item>
+        ))}
+      </Stack.Item>
+    </Stack>
+  );
+};
+
+const PathContentUnselected = ({ path }: { path: HereticPath }) => {
+  return (
+    <Stack vertical>
+      <Stack.Item verticalAlign="center" textAlign="center">
+        <KnowledgeNode
+          node={path.starting_knowledge}
+          purchaseCategory={ShopCategory.Start}
+        />
+        <Stack.Item>
+          <h3>
+            Сложность:{' '}
+            <span style={{ color: path.complexity_color }}>
+              {path.complexity}
+            </span>
+          </h3>
+        </Stack.Item>
+      </Stack.Item>
+      <Stack.Item>
+        <Stack vertical>
+          {path.description.map((line, index) => (
+            <Stack.Item key={index}>{line}</Stack.Item>
+          ))}
+        </Stack>
+      </Stack.Item>
+      <Stack.Divider />
+      <Stack.Item>
+        <Stack>
+          <Stack.Item style={{ justifyItems: 'center' }} width="50%">
+            <Stack vertical>
+              <Stack.Item bold>Пассивный навык: {path.passive.name}</Stack.Item>
+              <Stack.Item italic>{path.passive.recharge}</Stack.Item>
+              <Stack.Item className="Passive" width="100%">
+                {path.passive.description[0]}
+              </Stack.Item>
+            </Stack>
+          </Stack.Item>
+          <Stack.Item width="50%">
+            <Stack vertical>
+              <Stack.Item bold>Способности пути:</Stack.Item>
+              <Stack.Item>
+                <Stack wrap="wrap" justify="center">
+                  {path.preview_abilities.map((ability) => (
+                    <Stack.Item key={`guaranteed_${ability.name}`} m={1}>
+                      <KnowledgeNode node={ability} can_buy={false} />
+                    </Stack.Item>
+                  ))}
+                </Stack>
+              </Stack.Item>
+            </Stack>
+          </Stack.Item>
+        </Stack>
+      </Stack.Item>
+      <Stack.Divider />
+      <Stack.Item>
+        <Stack>
+          <Stack.Item width="50%">
+            <PathProCons proconlist={path.pros} title="Сильные стороны" />
+          </Stack.Item>
+          <Stack.Item width="50%">
+            <PathProCons proconlist={path.cons} title="Слабые стороны" />
+          </Stack.Item>
+        </Stack>
+      </Stack.Item>
+    </Stack>
+  );
+};
+
+const PathContentSelected = ({
+  path,
+  passive_level,
+}: {
+  path: HereticPath;
+  passive_level: number;
+}) => {
+  return (
+    <Stack vertical>
+      <Stack.Item>
+        {path.description.map((line, index) => (
+          <div key={index}>{line}</div>
+        ))}
+      </Stack.Item>
+      <Stack.Item>
+        <Stack vertical>
+          <Stack.Item bold>
+            Пассивный навык: {path.passive.name}, уровень: {passive_level}
+          </Stack.Item>
+          <Stack.Item italic>{path.passive.recharge}</Stack.Item>
+          {path.passive.description.map((line, index) => (
+            <Stack.Item
+              key={index}
+              className={`Passive ${passive_level >= index + 1 ? 'Passive--Active' : ''}`}
+              width="100%"
+            >
+              Уровень {index + 1}
+              <br />
+              {line}
+            </Stack.Item>
+          ))}
+        </Stack>
+      </Stack.Item>
+      <Stack.Item textAlign="left" mt={2} mb={1}>
+        <Stack.Item bold mb={1}>
+          Советы:
+        </Stack.Item>
+        <Stack.Item>
+          <Stack vertical>
+            {path.tips.map((tip, index) => (
+              <Stack.Item key={index} textAlign="left">
+                &bull; {tip}
+              </Stack.Item>
+            ))}
+          </Stack>
+        </Stack.Item>
+      </Stack.Item>
+    </Stack>
+  );
+};
+
 const PathContent = ({
   path,
   isPathSelected,
@@ -529,7 +727,7 @@ const PathContent = ({
 }) => {
   const { data } = useBackend<Info>();
   const { passive_level } = data;
-  const { name, description } = path.passive;
+
   return (
     <Section
       title={<h1 className="PathTitle">{path.route}</h1>}
@@ -538,98 +736,10 @@ const PathContent = ({
       scrollable
     >
       <Stack vertical>
-        {!isPathSelected && (
-          <Stack.Item verticalAlign="center" textAlign="center">
-            <h1>Choose Path:</h1>{' '}
-            <KnowledgeNode
-              node={path.starting_knowledge}
-              purchaseCategory={ShopCategory.Start}
-            />
-            <div>
-              <h3>
-                Complexity:{' '}
-                <span style={{ color: path.complexity_color }}>
-                  {path.complexity}
-                </span>
-              </h3>
-            </div>
-          </Stack.Item>
-        )}
-
-        <Stack.Item>
-          <b>Description:</b>{' '}
-          {path.description.map((line, index) => (
-            <div key={index}>{line}</div>
-          ))}
-        </Stack.Item>
-        {(!isPathSelected && (
-          <Stack.Item style={{ justifyItems: 'center' }}>
-            <b>Passive: {name}</b>
-            <p className="Passive">{description[0]}</p>
-          </Stack.Item>
-        )) || (
-          <Stack.Item>
-            <b>
-              Passive: {name}, level: {passive_level}
-            </b>
-            <Stack>
-              {description.map((line, index) => (
-                <Stack.Item
-                  key={index}
-                  className={`Passive ${passive_level >= index + 1 ? 'Passive--Active' : ''}`}
-                >
-                  Level {index + 1}
-                  <br />
-                  {line}
-                </Stack.Item>
-              ))}
-            </Stack>
-          </Stack.Item>
-        )}
-        <Stack.Item>
-          {!isPathSelected && (
-            <>
-              <b>Guaranteed Abilities:</b>
-              <Stack wrap="wrap" justify="center">
-                {path.preview_abilities.map((ability) => (
-                  <Stack.Item key={`guaranteed_${ability.name}`} m={1}>
-                    <KnowledgeNode node={ability} can_buy={false} />
-                  </Stack.Item>
-                ))}
-              </Stack>
-            </>
-          )}
-        </Stack.Item>
-        {!isPathSelected && (
-          <>
-            <Stack.Item>
-              <b>Pros:</b>
-              <div>
-                {path.pros.map((pro, index) => (
-                  <p key={index}>{pro}</p>
-                ))}
-              </div>
-            </Stack.Item>
-            <Stack.Item>
-              <b>Cons:</b>
-              <div>
-                {path.cons.map((con, index) => (
-                  <p key={index}>{con}</p>
-                ))}
-              </div>
-            </Stack.Item>
-          </>
-        )}
-
-        {isPathSelected && (
-          <Stack.Item textAlign="left" mt={2} mb={1}>
-            <b>Tips:</b>
-            <ul>
-              {path.tips.map((tip, index) => (
-                <li key={index}>{tip}</li>
-              ))}
-            </ul>
-          </Stack.Item>
+        {isPathSelected ? (
+          <PathContentSelected path={path} passive_level={passive_level} />
+        ) : (
+          <PathContentUnselected path={path} />
         )}
       </Stack>
     </Section>
@@ -651,13 +761,13 @@ export const AntagInfoHeretic = () => {
   );
 
   const tabs = [
-    { label: 'Information', icon: 'info', content: <IntroductionSection /> },
+    { label: 'Информация', icon: 'info', content: <IntroductionSection /> },
     {
-      label: 'Path Info',
+      label: 'Информация пути',
       icon: 'info',
       content: <PathInfo currentPath={currentPath} />,
     },
-    { label: 'Research', icon: 'book', content: <ResearchInfo /> },
+    { label: 'Исследования', icon: 'book', content: <ResearchInfo /> },
   ];
 
   const currentTheme = () => {

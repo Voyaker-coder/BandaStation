@@ -28,7 +28,7 @@
 	paycheck_department = ACCOUNT_SCI
 
 	mind_traits = list(HEAD_OF_STAFF_MIND_TRAITS)
-	liver_traits = list(TRAIT_ROYAL_METABOLISM, TRAIT_BALLMER_SCIENTIST)
+	liver_traits = list(TRAIT_ROYAL_METABOLISM, TRAIT_SCIENTIST_LIVER)
 
 	display_order = JOB_DISPLAY_ORDER_RESEARCH_DIRECTOR
 	bounty_types = CIV_JOB_SCI
@@ -78,6 +78,8 @@
 
 	chameleon_extras = /obj/item/stamp/head/rd
 	skillchips = list(/obj/item/skillchip/research_director, /obj/item/skillchip/job/roboticist)
+
+	wintercoat = /obj/item/clothing/suit/hooded/wintercoat/science/rd
 
 /datum/outfit/job/rd/mod
 	name = "Research Director (MODsuit)"

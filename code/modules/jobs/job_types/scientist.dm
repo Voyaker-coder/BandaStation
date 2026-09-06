@@ -16,7 +16,7 @@
 	paycheck = PAYCHECK_CREW
 	paycheck_department = ACCOUNT_SCI
 
-	liver_traits = list(TRAIT_BALLMER_SCIENTIST)
+	liver_traits = list(TRAIT_SCIENTIST_LIVER)
 
 	display_order = JOB_DISPLAY_ORDER_SCIENTIST
 	bounty_types = CIV_JOB_SCI
@@ -51,6 +51,8 @@
 	satchel = /obj/item/storage/backpack/satchel/science
 	duffelbag = /obj/item/storage/backpack/duffelbag/science
 	messenger = /obj/item/storage/backpack/messenger/science
+
+	wintercoat = /obj/item/clothing/suit/hooded/wintercoat/science
 
 /datum/outfit/job/scientist/pre_equip(mob/living/carbon/human/H)
 	..()

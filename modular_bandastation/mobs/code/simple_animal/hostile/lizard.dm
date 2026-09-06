@@ -7,7 +7,7 @@
 	icon_dead = "iguana_dead"
 	speak_emote = list("рычит", "ревет")
 	see_in_dark = 6
-	butcher_results = list(/obj/item/food/meat/slab/human/mutant/lizard = 3, /obj/item/stack/sheet/animalhide/lizard = 1)
+	butcher_results = list(/obj/item/food/meat/slab/human/mutant/lizard = 3, /obj/item/stack/sheet/animalhide/carbon/lizard = 1)
 	response_help_continuous = "гладит"
 	response_help_simple = "погладил"
 	response_disarm_continuous = "толкает"
@@ -46,12 +46,12 @@
 	maximum_survivable_temperature = T0C + 200
 
 	gold_core_spawnable = HOSTILE_SPAWN
-	can_be_held = FALSE
 
 	ai_controller = /datum/ai_controller/basic_controller/lizard/big
 
 /mob/living/basic/lizard/big/Initialize(mapload)
 	. = ..()
+	RemoveElement(/datum/element/can_be_held)
 	REMOVE_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_FENCE_CLIMBER, INNATE_TRAIT)
 	AddElement(/datum/element/ai_retaliate)
@@ -75,7 +75,7 @@
 	icon_state = "gator"
 	icon_living = "gator"
 	icon_dead = "gator_dead"
-	butcher_results = list(/obj/item/food/meat/slab/human/mutant/lizard = 7, /obj/item/stack/sheet/animalhide/lizard = 5)
+	butcher_results = list(/obj/item/food/meat/slab/human/mutant/lizard = 7, /obj/item/stack/sheet/animalhide/carbon/lizard = 5)
 	speed = 4
 	maxHealth = 300
 	health = 300
@@ -89,7 +89,7 @@
 	icon_state = "steppy"
 	icon_living = "steppy"
 	icon_dead = "steppy_dead"
-	butcher_results = list(/obj/item/food/meat/slab/human/mutant/lizard = 5, /obj/item/stack/sheet/animalhide/lizard = 3)
+	butcher_results = list(/obj/item/food/meat/slab/human/mutant/lizard = 5, /obj/item/stack/sheet/animalhide/carbon/lizard = 3)
 	maxHealth = 200
 	health = 200
 	obj_damage = 80

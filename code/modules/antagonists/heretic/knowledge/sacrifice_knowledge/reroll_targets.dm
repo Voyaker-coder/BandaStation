@@ -3,12 +3,12 @@
  */
 
 /datum/heretic_knowledge/reroll_targets
-	name = "The Relentless Heartbeat"
-	desc = "Позволяет трансмутировать колокольчик, книгу и джампсъют, стоя над руной, \
-		чтобы изменить цели жертвоприношения."
+	name = "Неумолимое биение сердца"
+	desc = "Позволяет изменить цели жертвоприношения."
+	transmute_text = "Трансмутируйте колокольчик, книгу и комбинезон."
 	gain_text = "Сердце - это принцип, который пребывает и оберегает."
 	required_atoms = list(
-		/obj/item/food/grown/harebell = 1,
+		/obj/item/food/grown/flower/harebell = 1,
 		/obj/item/book = 1,
 		/obj/item/clothing/under = 1,
 	)

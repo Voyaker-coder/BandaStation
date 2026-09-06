@@ -1,10 +1,10 @@
 /datum/lazy_template/virtual_domain/heretic_hunt
-	name = "Heretical Hunt"
+	name = "Еретическая охота"
 	cost = BITRUNNER_COST_LOW
-	desc = "Betray your fellow man to achieve ultimate power."
+	desc = "Предай своего ближнего, чтобы получить абсолютную силу."
 	difficulty = BITRUNNER_DIFFICULTY_LOW
-	help_text = "Heretics require sacrifice to fuel their dark rituals - bring corpses back to the ritual site! \
-		Corpses of higher ranking crew members are more valuable and may be holding useful equipment."
+	help_text = "Еретики требуют жертвоприношений для своих тёмных ритуалов - приносите трупы обратно на место ритуала! \
+		Трупы членов экипажа более высокого ранга представляют большую ценность и могут содержать полезное обмундирование."
 	forced_outfit = /datum/outfit/virtual_domain_heretic
 	key = "heretic_hunt"
 	map_name = "heretic_hunt"
@@ -53,14 +53,14 @@
 
 	// mimic a ritual effect
 	if(locate(/obj/structure/closet/crate/secure/bitrunning/encrypted) in range(1, rune))
-		rune.balloon_alert_to_viewers("ritual completed")
+		rune.balloon_alert_to_viewers("ритуал завершён")
 	else
-		rune.balloon_alert_to_viewers("sacrifice accepted")
+		rune.balloon_alert_to_viewers("жертвоприношение принято")
 	flick("[rune.icon_state]_active", rune)
 	playsound(rune, 'sound/effects/magic/castsummon.ogg', 50, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_exponent = 10, ignore_walls = FALSE)
 
 /datum/outfit/virtual_domain_heretic
-	name = "Virtual Domain Heretic"
+	name = "Еретик виртуального домена"
 
 	// this gear is just given to them in the safehouse
 	// suit = /obj/item/clothing/suit/hooded/cultrobes/eldritch
@@ -75,62 +75,34 @@
 /datum/outfit/virtual_domain_heretic/pre_equip(mob/living/carbon/human/user, visuals_only)
 	ADD_TRAIT(user, TRAIT_ACT_AS_HERETIC, INNATE_TRAIT)
 	ADD_TRAIT(user, TRAIT_NO_TELEPORT, INNATE_TRAIT)
-	user.AddElement(/datum/element/leeching_walk)
-	user.faction |= FACTION_HERETIC
+	user.AddElement(/datum/element/rust_healing)
+	user.add_faction(FACTION_HERETIC)
 
-// All it does is stand there, only attacks if attacked (Manuel player)
+// All it does is stand there, only attacks if attacked (Manuel player) (TODO: make them ahelp to really simulate manuel players)
 /datum/ai_controller/basic_controller/fake_crewman
+	behavior_tree_json = "code/modules/bitrunning/virtual_domain/domains/crewman.bt.json"
 	blackboard = list(
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
 		BB_TARGET_MINIMUM_STAT = HARD_CRIT,
-		BB_REINFORCEMENTS_SAY = "Help me!",
+		BB_REINFORCEMENTS_SAY = "Помоги мне!",
+		BB_CALLS_REINFORCEMENTS = TRUE,
 	)
 	ai_movement = /datum/ai_movement/basic_avoidance
-	idle_behavior = /datum/idle_behavior/idle_random_walk/less_walking
-	planning_subtrees = list(
-		/datum/ai_planning_subtree/escape_captivity,
-		/datum/ai_planning_subtree/call_reinforcements,
-		/datum/ai_planning_subtree/target_retaliate,
-		/datum/ai_planning_subtree/attack_obstacle_in_path/trooper,
-		/datum/ai_planning_subtree/basic_melee_attack_subtree,
-	)
 
 /datum/ai_controller/basic_controller/fake_crewman/ranged
-	planning_subtrees = list(
-		/datum/ai_planning_subtree/escape_captivity,
-		/datum/ai_planning_subtree/call_reinforcements,
-		/datum/ai_planning_subtree/target_retaliate,
-		/datum/ai_planning_subtree/maintain_distance,
-		/datum/ai_planning_subtree/ranged_skirmish,
-		/datum/ai_planning_subtree/attack_obstacle_in_path/trooper,
-		/datum/ai_planning_subtree/basic_melee_attack_subtree,
-	)
+	behavior_tree_json = "code/modules/bitrunning/virtual_domain/domains/crewman_ranged.bt.json"
 
 // Immediately tries to attack the player (Terry player)
 /datum/ai_controller/basic_controller/fake_crewman/instant_hostile
-	planning_subtrees = list(
-		/datum/ai_planning_subtree/escape_captivity,
-		/datum/ai_planning_subtree/call_reinforcements,
-		/datum/ai_planning_subtree/simple_find_target,
-		/datum/ai_planning_subtree/attack_obstacle_in_path/trooper,
-		/datum/ai_planning_subtree/basic_melee_attack_subtree,
-	)
+	behavior_tree_json = "code/modules/bitrunning/virtual_domain/domains/crewman_hostile.bt.json"
 
 /datum/ai_controller/basic_controller/fake_crewman/instant_hostile/ranged
-	planning_subtrees = list(
-		/datum/ai_planning_subtree/escape_captivity,
-		/datum/ai_planning_subtree/call_reinforcements,
-		/datum/ai_planning_subtree/simple_find_target,
-		/datum/ai_planning_subtree/maintain_distance,
-		/datum/ai_planning_subtree/ranged_skirmish,
-		/datum/ai_planning_subtree/attack_obstacle_in_path/trooper,
-		/datum/ai_planning_subtree/basic_melee_attack_subtree,
-	)
+	behavior_tree_json = "code/modules/bitrunning/virtual_domain/domains/crewman_hostile_ranged.bt.json"
 
 // The actual crewmate
 /mob/living/basic/fake_crewman
 	name = "crewmember"
-	desc = "How do you do, fellow crewmen?"
+	desc = "Как делишки, космонавтик?"
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	faction = list(FACTION_HOSTILE, "vdom_fake_crew")
 	icon = 'icons/mob/simple/simple_human.dmi'
