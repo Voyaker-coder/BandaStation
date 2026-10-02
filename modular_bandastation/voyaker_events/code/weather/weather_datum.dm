@@ -7,6 +7,7 @@
 	end_duration = 10 SECONDS
 	target_trait = ZTRAIT_STATION
 	weather_sound = 'modular_bandastation/voyaker_events/sounds/desert.ogg'
+	var/list/eftk_dropped_items = list()
 	protected_areas = list(
 	/area/new_sydney/building,
 	/area/new_sydney/mine,
@@ -28,7 +29,16 @@
 /datum/weather/rad_storm/eftk/end()
 	status_alarm(FALSE)
 
-	cleanup_old_items()
+	eftk_dropped_items.Cut()
+	for(var/obj/item/I as anything in eftk_dropped_items)
+		if(QDELETED(I))
+			continue
+		if(!isturf(I.loc))
+			continue
+		if(world.time - eftk_dropped_items[I] < 15 MINUTES)
+			continue
+		if(get_area(I) in impacted_areas)
+			qdel(I)
 
 	priority_announce(
 		"Угроза радиационного шторма миновала. Можете покинуть своё убежище.",
@@ -54,12 +64,3 @@
 
 	return ..()
 
-/datum/weather/rad_storm/eftk/proc/cleanup_old_items()
-	for(var/area/A as anything in impacted_areas)
-		for(var/turf/T in A)
-			for(var/obj/item/I in T)
-				if(QDELETED(I))
-					continue
-				if(world.time - I.spawn_time < 15 MINUTES)
-					continue
-				qdel(I)

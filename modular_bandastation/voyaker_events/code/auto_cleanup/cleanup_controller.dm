@@ -27,3 +27,20 @@ SUBSYSTEM_DEF(gibs_cleanup)
 		if(!isturf(G.loc))
 			continue
 		qdel(G)
+
+SUBSYSTEM_DEF(blood_cleanup)
+	name = "EFTK Blood Cleanup System"
+	wait = 5 MINUTES
+	runlevels = RUNLEVEL_GAME
+
+/datum/controller/subsystem/blood_cleanup/fire()
+	for(var/obj/effect/decal/cleanable/blood/S in GLOB.world_blood)
+		if(QDELETED(G))
+			continue
+		if(isturf(/obj/effect/decal/cleanable/blood/old))
+			continue
+		if(world.time - G.spawn_time < 10 MINUTES)
+			continue
+		if(!isturf(G.loc))
+			continue
+		qdel(G)

@@ -754,12 +754,12 @@
 	result = /obj/item/ammo_box/magazine/m9mm
 	reqs = list(
 		/obj/item/ammo_box/magazine/m9mm = 1,
-		/obj/item/ammo_casing/c9mm = 12,
+		/obj/item/ammo_casing = 12,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/m9mm = 1,
-		/obj/item/ammo_casing/c9mm = 12,
+		/obj/item/ammo_casing = 12,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -775,11 +775,11 @@
 	result = /obj/item/ammo_box/magazine/m9mm
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c9mm = 12,
+		/obj/item/ammo_casing = 12,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c9mm = 12,
+		/obj/item/ammo_casing = 12,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -796,12 +796,12 @@
 	result = /obj/item/ammo_box/speedloader/strilka310
 	reqs = list(
 		/obj/item/ammo_box/speedloader/strilka310 = 1,
-		/obj/item/ammo_casing/strilka310 = 5,
+		/obj/item/ammo_casing = 5,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/speedloader/strilka310 = 1,
-		/obj/item/ammo_casing/strilka310 = 5,
+		/obj/item/ammo_casing = 5,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -817,11 +817,11 @@
 	result = /obj/item/ammo_box/speedloader/strilka310
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/strilka310 = 5,
+		/obj/item/ammo_casing = 5,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/strilka310 = 5,
+		/obj/item/ammo_casing = 5,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -838,12 +838,12 @@
 	result = /obj/item/ammo_box/magazine/zashch
 	reqs = list(
 		/obj/item/ammo_box/magazine/zashch = 1,
-		/obj/item/ammo_casing/c10mm = 15,
+		/obj/item/ammo_casing = 15,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/zashch = 1,
-		/obj/item/ammo_casing/c10mm = 15,
+		/obj/item/ammo_casing = 15,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -859,11 +859,11 @@
 	result = /obj/item/ammo_box/magazine/zashch
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c10mm = 15,
+		/obj/item/ammo_casing = 15,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c10mm = 15,
+		/obj/item/ammo_casing = 15,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -880,12 +880,12 @@
 	result = /obj/item/ammo_box/c762x54mmr
 	reqs = list(
 		/obj/item/stack/sheet/cardboard = 1,
-		/obj/item/ammo_casing/c762x54mmr = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
 		/obj/item/stack/sheet/cardboard = 1,
-		/obj/item/ammo_casing/c762x54mmr = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -901,12 +901,12 @@
 	result = /obj/item/ammo_box/c762x39/ricochet
 	reqs = list(
 		/obj/item/stack/sheet/cardboard = 1,
-		/obj/item/ammo_casing/c762x39 = 45,
+		/obj/item/ammo_casing = 45,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/stack/sheet/cardboard = 1,
-		/obj/item/ammo_casing/c762x39 = 45,
+		/obj/item/ammo_casing = 45,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -922,12 +922,12 @@
 	result = /obj/item/ammo_box/magazine/c762x39mm/small/civ
 	reqs = list(
 		/obj/item/ammo_box/magazine/c762x39mm/small/civ = 1,
-		/obj/item/ammo_casing/c762x39 = 15,
+		/obj/item/ammo_casing = 15,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/c762x39mm/small/civ = 1,
-		/obj/item/ammo_casing/c762x39 = 15,
+		/obj/item/ammo_casing = 15,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -943,12 +943,12 @@
 	result = /obj/item/ammo_box/magazine/c762x39mm/small/civ
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c762x39 = 15,
+		/obj/item/ammo_casing = 15,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c762x39 = 15,
+		/obj/item/ammo_casing = 15,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -965,12 +965,12 @@
 	result = /obj/item/ammo_box/magazine/c762x39mm/ricochet
 	reqs = list(
 		/obj/item/ammo_box/magazine/c762x39mm = 1,
-		/obj/item/ammo_casing/c762x39 = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/c762x39mm = 1,
-		/obj/item/ammo_casing/c762x39 = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -986,11 +986,11 @@
 	result = /obj/item/ammo_box/magazine/c762x39mm/ricochet
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c762x39 = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c762x39 = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1007,12 +1007,12 @@
 	result = /obj/item/ammo_box/magazine/c35sol_pistol
 	reqs = list(
 		/obj/item/ammo_box/magazine/c35sol_pistol = 1,
-		/obj/item/ammo_casing/c35sol = 12,
+		/obj/item/ammo_casing = 12,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/c35sol_pistol = 1,
-		/obj/item/ammo_casing/c35sol = 12,
+		/obj/item/ammo_casing = 12,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -1028,11 +1028,11 @@
 	result = /obj/item/ammo_box/magazine/c35sol_pistol
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c35sol = 12,
+		/obj/item/ammo_casing = 12,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c35sol = 12,
+		/obj/item/ammo_casing = 12,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -1049,12 +1049,12 @@
 	result = /obj/item/ammo_box/magazine/c40sol_rifle
 	reqs = list(
 		/obj/item/ammo_box/magazine/c40sol_rifle = 1,
-		/obj/item/ammo_casing/c40sol = 10,
+		/obj/item/ammo_casing = 10,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/c40sol_rifle = 1,
-		/obj/item/ammo_casing/c40sol = 10,
+		/obj/item/ammo_casing = 10,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1070,12 +1070,12 @@
 	result = /obj/item/ammo_box/magazine/c40sol_rifle
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c40sol = 10,
+		/obj/item/ammo_casing = 10,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c40sol = 10,
+		/obj/item/ammo_casing = 10,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1092,12 +1092,12 @@
 	result = /obj/item/ammo_box/magazine/c40sol_rifle/standard
 	reqs = list(
 		/obj/item/ammo_box/magazine/c40sol_rifle/standard = 1,
-		/obj/item/ammo_casing/c40sol = 20,
+		/obj/item/ammo_casing = 20,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/c40sol_rifle/standard = 1,
-		/obj/item/ammo_casing/c40sol = 20,
+		/obj/item/ammo_casing = 20,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1113,12 +1113,12 @@
 	result = /obj/item/ammo_box/magazine/c40sol_rifle/standard
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c40sol = 20,
+		/obj/item/ammo_casing = 20,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c40sol = 20,
+		/obj/item/ammo_casing = 20,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1135,12 +1135,12 @@
 	result = /obj/item/storage/box/lethalshot
 	reqs = list(
 		/obj/item/stack/sheet/cardboard = 1,
-		/obj/item/ammo_casing/shotgun = 7,
+		/obj/item/ammo_casing = 7,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
 		/obj/item/stack/sheet/cardboard = 1,
-		/obj/item/ammo_casing/shotgun = 7,
+		/obj/item/ammo_casing = 7,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -1156,12 +1156,12 @@
 	result = /obj/item/ammo_box/magazine/uzim9mm
 	reqs = list(
 		/obj/item/ammo_box/magazine/uzim9mm = 1,
-		/obj/item/ammo_casing/c9mm = 32,
+		/obj/item/ammo_casing = 32,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/uzim9mm = 1,
-		/obj/item/ammo_casing/c9mm = 32,
+		/obj/item/ammo_casing = 32,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -1177,12 +1177,12 @@
 	result = /obj/item/ammo_box/magazine/uzim9mm
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c9mm = 32,
+		/obj/item/ammo_casing = 32,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c9mm = 32,
+		/obj/item/ammo_casing = 32,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -1260,12 +1260,12 @@
 	result = /obj/item/ammo_box/magazine/m9mm/hp
 	reqs = list(
 		/obj/item/ammo_box/magazine/m9mm = 1,
-		/obj/item/ammo_casing/c9mm = 12,
+		/obj/item/ammo_casing = 12,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/m9mm =  1,
-		/obj/item/ammo_casing/c9mm = 12,
+		/obj/item/ammo_casing = 12,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -1281,11 +1281,11 @@
 	result = /obj/item/ammo_box/magazine/m9mm/hp
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c9mm = 12,
+		/obj/item/ammo_casing = 12,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c9mm = 12,
+		/obj/item/ammo_casing = 12,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -1302,12 +1302,12 @@
 	result = /obj/item/ammo_box/magazine/m9mm/ap
 	reqs = list(
 		/obj/item/ammo_box/magazine/m9mm = 1,
-		/obj/item/ammo_casing/c9mm = 12,
+		/obj/item/ammo_casing = 12,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/m9mm = 1,
-		/obj/item/ammo_casing/c9mm = 12,
+		/obj/item/ammo_casing = 12,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1323,11 +1323,11 @@
 	result = /obj/item/ammo_box/magazine/m9mm/ap
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c9mm = 12,
+		/obj/item/ammo_casing = 12,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c9mm = 12,
+		/obj/item/ammo_casing = 12,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1344,12 +1344,12 @@
 	result = /obj/item/ammo_box/magazine/m10mm/hp
 	reqs = list(
 		/obj/item/ammo_box/magazine/m10mm = 1,
-		/obj/item/ammo_casing/c10mm = 8,
+		/obj/item/ammo_casing = 8,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/m10mm/hp = 1,
-		/obj/item/ammo_casing/c10mm = 8,
+		/obj/item/ammo_casing = 8,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -1365,11 +1365,11 @@
 	result = /obj/item/ammo_box/magazine/m10mm/hp
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c10mm = 8,
+		/obj/item/ammo_casing = 8,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c10mm = 8,
+		/obj/item/ammo_casing = 8,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -1386,12 +1386,12 @@
 	result = /obj/item/ammo_box/magazine/m10mm/ap
 	reqs = list(
 		/obj/item/ammo_box/magazine/m10mm = 1,
-		/obj/item/ammo_casing/c10mm = 8,
+		/obj/item/ammo_casing = 8,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/m10mm/ap = 1,
-		/obj/item/ammo_casing/c10mm = 8,
+		/obj/item/ammo_casing = 8,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1407,11 +1407,11 @@
 	result = /obj/item/ammo_box/magazine/m10mm/ap
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c10mm = 8,
+		/obj/item/ammo_casing = 8,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c10mm = 8,
+		/obj/item/ammo_casing = 8,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1428,13 +1428,13 @@
 	result = /obj/item/ammo_box/magazine/c762x39mm/emp
 	reqs = list(
 		/obj/item/ammo_box/magazine/c762x39mm = 1,
-		/obj/item/ammo_casing/c762x39 = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/high = 1,
 		/obj/item/stock_parts/capacitor = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/c762x39mm = 1,
-		/obj/item/ammo_casing/c762x39 = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/high = 1,
 		/obj/item/stock_parts/capacitor = 1,
 	)
@@ -1451,12 +1451,12 @@
 	result = /obj/item/ammo_box/magazine/c762x39mm/emp
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c762x39 = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/high = 1,
 		/obj/item/stock_parts/capacitor = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c762x39 = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/high = 1,
 		/obj/item/stock_parts/capacitor = 1,
 	)
@@ -1474,12 +1474,12 @@
 	result = /obj/item/ammo_box/magazine/bison
 	reqs = list(
 		/obj/item/ammo_box/magazine/bison = 1,
-		/obj/item/ammo_casing/c9mm = 64,
+		/obj/item/ammo_casing = 64,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/bison = 1,
-		/obj/item/ammo_casing/c9mm = 64,
+		/obj/item/ammo_casing = 64,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -1495,11 +1495,11 @@
 	result = /obj/item/ammo_box/magazine/bison
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c9mm = 64,
+		/obj/item/ammo_casing = 64,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c9mm = 64,
+		/obj/item/ammo_casing = 64,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -1516,12 +1516,12 @@
 	result = /obj/item/ammo_box/magazine/bison/hp
 	reqs = list(
 		/obj/item/ammo_box/magazine/bison = 1,
-		/obj/item/ammo_casing/c9mm = 64,
+		/obj/item/ammo_casing = 64,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/bison = 1,
-		/obj/item/ammo_casing/c9mm = 64,
+		/obj/item/ammo_casing = 64,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1537,11 +1537,11 @@
 	result = /obj/item/ammo_box/magazine/bison/hp
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c9mm = 64,
+		/obj/item/ammo_casing = 64,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c9mm = 64,
+		/obj/item/ammo_casing = 64,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1558,12 +1558,12 @@
 	result = /obj/item/ammo_box/magazine/bison/ap
 	reqs = list(
 		/obj/item/ammo_box/magazine/bison = 1,
-		/obj/item/ammo_casing/c9mm = 64,
+		/obj/item/ammo_casing = 64,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/bison = 1,
-		/obj/item/ammo_casing/c9mm = 64,
+		/obj/item/ammo_casing = 64,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1579,11 +1579,11 @@
 	result = /obj/item/ammo_box/magazine/bison/ap
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c9mm = 64,
+		/obj/item/ammo_casing = 64,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c9mm = 64,
+		/obj/item/ammo_casing = 64,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1600,12 +1600,12 @@
 	result = /obj/item/ammo_box/magazine/c35sol_pistol/drum
 	reqs = list(
 		/obj/item/ammo_box/magazine/c35sol_pistol/drum = 1,
-		/obj/item/ammo_casing/c35sol = 35,
+		/obj/item/ammo_casing = 35,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/c35sol_pistol/drum = 1,
-		/obj/item/ammo_casing/c35sol = 35,
+		/obj/item/ammo_casing = 35,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -1621,11 +1621,11 @@
 	result = /obj/item/ammo_box/magazine/c35sol_pistol/drum
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c35sol = 35,
+		/obj/item/ammo_casing = 35,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c35sol = 35,
+		/obj/item/ammo_casing = 35,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -1642,12 +1642,12 @@
 	result = /obj/item/ammo_box/magazine/c35sol_pistol/drum/hp
 	reqs = list(
 		/obj/item/ammo_box/magazine/c35sol_pistol/drum = 1,
-		/obj/item/ammo_casing/c35sol = 35,
+		/obj/item/ammo_casing = 35,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/c35sol_pistol/drum = 1,
-		/obj/item/ammo_casing/c35sol = 35,
+		/obj/item/ammo_casing = 35,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1663,11 +1663,11 @@
 	result = /obj/item/ammo_box/magazine/c35sol_pistol/drum/hp
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c35sol = 35,
+		/obj/item/ammo_casing = 35,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c35sol = 35,
+		/obj/item/ammo_casing = 35,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1684,12 +1684,12 @@
 	result = /obj/item/ammo_box/magazine/c35sol_pistol/drum/ap
 	reqs = list(
 		/obj/item/ammo_box/magazine/c35sol_pistol/drum = 1,
-		/obj/item/ammo_casing/c35sol = 35,
+		/obj/item/ammo_casing = 35,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/c35sol_pistol/drum = 1,
-		/obj/item/ammo_casing/c35sol = 35,
+		/obj/item/ammo_casing = 35,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1705,11 +1705,11 @@
 	result = /obj/item/ammo_box/magazine/c35sol_pistol/drum/ap
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c35sol = 35,
+		/obj/item/ammo_casing = 35,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c35sol = 35,
+		/obj/item/ammo_casing = 35,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1726,12 +1726,12 @@
 	result = /obj/item/ammo_box/magazine/c40sol_rifle/long
 	reqs = list(
 		/obj/item/ammo_box/magazine/c40sol_rifle/long = 1,
-		/obj/item/ammo_casing/c40sol = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/c40sol_rifle/long = 1,
-		/obj/item/ammo_casing/c35sol = 35,
+		/obj/item/ammo_casing = 35,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1747,11 +1747,11 @@
 	result = /obj/item/ammo_box/magazine/c40sol_rifle/long
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c40sol = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c40sol = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1768,12 +1768,12 @@
 	result = /obj/item/ammo_box/magazine/strilka310
 	reqs = list(
 		/obj/item/ammo_box/magazine/strilka310 = 1,
-		/obj/item/ammo_casing/strilka310 = 15,
+		/obj/item/ammo_casing = 15,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/strilka310 = 1,
-		/obj/item/ammo_casing/strilka310 = 15,
+		/obj/item/ammo_casing = 15,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -1789,11 +1789,11 @@
 	result = /obj/item/ammo_box/magazine/strilka310
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/strilka310 = 15,
+		/obj/item/ammo_casing = 15,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/strilka310 = 15,
+		/obj/item/ammo_casing = 15,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -1810,12 +1810,12 @@
 	result = /obj/item/ammo_box/magazine/m45
 	reqs = list(
 		/obj/item/ammo_box/magazine/m45 = 1,
-		/obj/item/ammo_casing/c45 = 8,
+		/obj/item/ammo_casing = 8,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/m45 = 1,
-		/obj/item/ammo_casing/c45 = 8,
+		/obj/item/ammo_casing = 8,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1831,11 +1831,11 @@
 	result = /obj/item/ammo_box/magazine/m45
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c45 = 8,
+		/obj/item/ammo_casing = 8,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c45 = 8,
+		/obj/item/ammo_casing = 8,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1852,12 +1852,12 @@
 	result = /obj/item/ammo_box/magazine/c45
 	reqs = list(
 		/obj/item/ammo_box/magazine/c45 = 1,
-		/obj/item/ammo_casing/c45 = 10,
+		/obj/item/ammo_casing = 10,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/c45 = 1,
-		/obj/item/ammo_casing/c45 = 10,
+		/obj/item/ammo_casing = 10,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1873,11 +1873,11 @@
 	result = /obj/item/ammo_box/magazine/c45
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c45 = 10,
+		/obj/item/ammo_casing = 10,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c45 = 10,
+		/obj/item/ammo_casing = 10,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1894,12 +1894,12 @@
 	result = /obj/item/ammo_box/magazine/smgm45
 	reqs = list(
 		/obj/item/ammo_box/magazine/smgm45 = 1,
-		/obj/item/ammo_casing/c45 = 24,
+		/obj/item/ammo_casing = 24,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/smgm45 = 1,
-		/obj/item/ammo_casing/c45 = 10,
+		/obj/item/ammo_casing = 10,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1915,11 +1915,11 @@
 	result = /obj/item/ammo_box/magazine/smgm45
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c45 = 24,
+		/obj/item/ammo_casing = 24,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c45 = 10,
+		/obj/item/ammo_casing = 10,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -1936,12 +1936,12 @@
 	result = /obj/item/ammo_box/magazine/fn18
 	reqs = list(
 		/obj/item/ammo_box/magazine/fn18 = 1,
-		/obj/item/ammo_casing/c9mm = 40,
+		/obj/item/ammo_casing = 40,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/fn18 = 1,
-		/obj/item/ammo_casing/c9mm = 40,
+		/obj/item/ammo_casing = 40,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -1957,11 +1957,11 @@
 	result = /obj/item/ammo_box/magazine/fn18
 	reqs = list(
 		/obj/item/ammo_box/magazine/fn18 = 1,
-		/obj/item/ammo_casing/c9mm = 40,
+		/obj/item/ammo_casing = 40,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c9mm = 40,
+		/obj/item/ammo_casing = 40,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -1978,12 +1978,12 @@
 	result = /obj/item/ammo_box/magazine/m9mm_aps
 	reqs = list(
 		/obj/item/ammo_box/magazine/m9mm_aps = 1,
-		/obj/item/ammo_casing/c9mm = 15,
+		/obj/item/ammo_casing = 15,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/m9mm_aps = 1,
-		/obj/item/ammo_casing/c9mm = 15,
+		/obj/item/ammo_casing = 15,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -1999,11 +1999,11 @@
 	result = /obj/item/ammo_box/magazine/m9mm_aps
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c9mm = 15,
+		/obj/item/ammo_casing = 15,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c9mm = 15,
+		/obj/item/ammo_casing = 15,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -2020,12 +2020,12 @@
 	result = /obj/item/ammo_box/magazine/c762x51mm
 	reqs = list(
 		/obj/item/ammo_box/magazine/c762x51mm = 1,
-		/obj/item/ammo_casing/c762x51mm = 20,
+		/obj/item/ammo_casing = 20,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/c762x51mm = 1,
-		/obj/item/ammo_casing/c762x51mm = 20,
+		/obj/item/ammo_casing = 20,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	tool_behaviors = list(
@@ -2041,11 +2041,11 @@
 	result = /obj/item/ammo_box/magazine/c762x51mm
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c762x51mm = 20,
+		/obj/item/ammo_casing = 20,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c762x51mm = 20,
+		/obj/item/ammo_casing = 20,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	tool_behaviors = list(
@@ -2062,12 +2062,12 @@
 	result = /obj/item/ammo_box/magazine/as32
 	reqs = list(
 		/obj/item/ammo_box/magazine/as32 = 1,
-		/obj/item/ammo_casing/shotgun = 8,
+		/obj/item/ammo_casing = 8,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/as32 = 1,
-		/obj/item/ammo_casing/shotgun = 8,
+		/obj/item/ammo_casing = 8,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -2083,11 +2083,11 @@
 	result = /obj/item/ammo_box/magazine/as32
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/shotgun = 8,
+		/obj/item/ammo_casing = 8,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/shotgun = 8,
+		/obj/item/ammo_casing = 8,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -2129,12 +2129,12 @@
 	result = /obj/item/ammo_box/magazine/smg10mm
 	reqs = list(
 		/obj/item/ammo_box/magazine/smg10mm = 1,
-		/obj/item/ammo_casing/c10mm = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/smg10mm = 1,
-		/obj/item/ammo_casing/c10mm = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -2150,11 +2150,11 @@
 	result = /obj/item/ammo_box/magazine/smg10mm
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c10mm = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c10mm = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder = 1,
 	)
 	tool_behaviors = list(
@@ -2171,12 +2171,12 @@
 	result = /obj/item/ammo_box/magazine/smg10mm/ap
 	reqs = list(
 		/obj/item/ammo_box/magazine/smg10mm = 1,
-		/obj/item/ammo_casing/c10mm = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/smg10mm = 1,
-		/obj/item/ammo_casing/c10mm = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -2192,11 +2192,11 @@
 	result = /obj/item/ammo_box/magazine/smg10mm/ap
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c10mm = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c10mm = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -2213,12 +2213,12 @@
 	result = /obj/item/ammo_box/magazine/c762x39mm/ap
 	reqs = list(
 		/obj/item/ammo_box/magazine/c762x39mm = 1,
-		/obj/item/ammo_casing/c762x39 = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/c762x39mm = 1,
-		/obj/item/ammo_casing/c762x39 = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	tool_behaviors = list(
@@ -2234,11 +2234,11 @@
 	result = /obj/item/ammo_box/magazine/c762x39mm/ap
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c762x39 = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c762x39 = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	tool_behaviors = list(
@@ -2255,12 +2255,12 @@
 	result = /obj/item/ammo_box/magazine/c40sol_rifle/drum
 	reqs = list(
 		/obj/item/ammo_box/magazine/c40sol_rifle/drum = 1,
-		/obj/item/ammo_casing/c40sol = 60,
+		/obj/item/ammo_casing = 60,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/c40sol_rifle/drum = 1,
-		/obj/item/ammo_casing/c40sol = 60,
+		/obj/item/ammo_casing = 60,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -2276,11 +2276,11 @@
 	result = /obj/item/ammo_box/magazine/c40sol_rifle/drum
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c40sol = 60,
+		/obj/item/ammo_casing = 60,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c40sol = 60,
+		/obj/item/ammo_casing = 60,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -2297,12 +2297,12 @@
 	result = /obj/item/ammo_box/magazine/c40sol_rifle/long/ap
 	reqs = list(
 		/obj/item/ammo_box/magazine/c40sol_rifle/long/ap = 1,
-		/obj/item/ammo_casing/c40sol = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/c40sol_rifle/long/ap = 1,
-		/obj/item/ammo_casing/c40sol = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	tool_behaviors = list(
@@ -2318,11 +2318,11 @@
 	result = /obj/item/ammo_box/magazine/c40sol_rifle/long/ap
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c40sol = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c40sol = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	tool_behaviors = list(
@@ -2339,12 +2339,12 @@
 	result = /obj/item/ammo_box/magazine/c338
 	reqs = list(
 		/obj/item/ammo_box/magazine/c338 = 1,
-		/obj/item/ammo_casing/c338 = 5,
+		/obj/item/ammo_casing = 5,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/c338 = 1,
-		/obj/item/ammo_casing/c338 = 5,
+		/obj/item/ammo_casing = 5,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	tool_behaviors = list(
@@ -2360,11 +2360,11 @@
 	result = /obj/item/ammo_box/magazine/c338
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c338 = 5,
+		/obj/item/ammo_casing = 5,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c338 = 5,
+		/obj/item/ammo_casing = 5,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	tool_behaviors = list(
@@ -2381,12 +2381,12 @@
 	result = /obj/item/ammo_box/magazine/m50
 	reqs = list(
 		/obj/item/ammo_box/magazine/m50 = 1,
-		/obj/item/ammo_casing/a50ae = 7,
+		/obj/item/ammo_casing = 7,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/m50 = 1,
-		/obj/item/ammo_casing/a50ae = 7,
+		/obj/item/ammo_casing = 7,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	tool_behaviors = list(
@@ -2402,11 +2402,11 @@
 	result = /obj/item/ammo_box/magazine/m50
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/a50ae = 7,
+		/obj/item/ammo_casing = 7,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/a50ae = 7,
+		/obj/item/ammo_casing = 7,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	tool_behaviors = list(
@@ -2423,12 +2423,12 @@
 	result = /obj/item/ammo_box/c12ga/slug
 	reqs = list(
 		/obj/item/stack/sheet/cardboard = 1,
-		/obj/item/ammo_casing/shotgun = 20,
+		/obj/item/ammo_casing = 20,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	parts = list(
 		/obj/item/stack/sheet/cardboard = 1,
-		/obj/item/ammo_casing/shotgun = 20,
+		/obj/item/ammo_casing = 20,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	tool_behaviors = list(
@@ -2444,11 +2444,11 @@
 	result = /obj/item/ammo_box/speedloader/c357/match
 	reqs = list(
 		/obj/item/stack/sheet/iron = 1,
-		/obj/item/ammo_casing/c357 = 7,
+		/obj/item/ammo_casing = 7,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c357 = 7,
+	/obj/item/ammo_casing = 7,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	tool_behaviors = list(
@@ -2465,12 +2465,12 @@
 	result = /obj/item/ammo_box/magazine/m223
 	reqs = list(
 		/obj/item/ammo_box/magazine/m223 = 1,
-		/obj/item/ammo_casing/a223 = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/m223 = 1,
-		/obj/item/ammo_casing/a223 = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -2486,11 +2486,11 @@
 	result = /obj/item/ammo_box/magazine/m223
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/a223 = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/a223 = 30,
+		/obj/item/ammo_casing = 30,
 		/obj/item/crafting_items/gunpowder/medium = 1,
 	)
 	tool_behaviors = list(
@@ -2507,12 +2507,12 @@
 	result = /obj/item/ammo_box/magazine/smartgun
 	reqs = list(
 		/obj/item/ammo_box/magazine/smartgun = 1,
-		/obj/item/ammo_casing/c160smart = 50,
+		/obj/item/ammo_casing = 50,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	parts = list(
 		/obj/item/ammo_box/magazine/smartgun = 1,
-		/obj/item/ammo_casing/c160smart = 50,
+		/obj/item/ammo_casing = 50,
 		/obj/item/crafting_items/gunpowder/high = 1,
 	)
 	tool_behaviors = list(
@@ -2528,12 +2528,12 @@
 	result = /obj/item/ammo_box/magazine/smartgun
 	reqs = list(
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/ammo_casing/c160smart = 50,
+		/obj/item/ammo_casing = 50,
 		/obj/item/crafting_items/gunpowder/high = 1,
 		/obj/item/stock_parts/servo = 1,
 	)
 	parts = list(
-		/obj/item/ammo_casing/c160smart = 50,
+		/obj/item/ammo_casing = 50,
 		/obj/item/crafting_items/gunpowder/high = 1,
 		/obj/item/stock_parts/servo = 1,
 	)
