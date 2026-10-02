@@ -28,6 +28,8 @@
 /datum/weather/rad_storm/eftk/end()
 	status_alarm(FALSE)
 
+	cleanup_old_items()
+
 	priority_announce(
 		"Угроза радиационного шторма миновала. Можете покинуть своё убежище.",
 		"Система наблюдения АСБ Ковчег"
@@ -51,3 +53,13 @@
 			do_mutate(H)
 
 	return ..()
+
+/datum/weather/rad_storm/eftk/proc/cleanup_old_items()
+	for(var/area/A as anything in impacted_areas)
+		for(var/turf/T in A)
+			for(var/obj/item/I in T)
+				if(QDELETED(I))
+					continue
+				if(world.time - I.spawn_time < 15 MINUTES)
+					continue
+				qdel(I)
